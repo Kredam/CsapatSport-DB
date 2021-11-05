@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Matches {% endblock %}
+
+{% block content %}
+    <div class="sql_table_div">
+        <table class="sql_table">
+            <tr>
+                <th>Team's name</th>
+                <th>Enemy's name</th>
+                <th>Date</th>
+            </tr>
+            {% for match in matches %}
+                <tr>
+                    <td>{{match[0]}}</td>
+                    <td>{{match[1]}}</td>
+                    <td>{{match[2]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

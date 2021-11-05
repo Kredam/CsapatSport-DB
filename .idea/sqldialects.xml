@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/db/sql/create_tables.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/db/sql/insert_match.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/db/sql/insert_player.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/db/sql/insert_stadiums.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/db/sql/insert_teams.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/db/sql/reset_tables.sql" dialect="GenericSQL" />
+  </component>
+</project>

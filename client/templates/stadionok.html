@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Stadiums {% endblock %}
+
+{% block content %}
+    <div class="sql_table_div">
+        <table class="sql_table">
+            <tr>
+                <th>Team's name</th>
+                <th>Stadium's name</th>
+            </tr>
+            {% for stadium in stadiums %}
+                <tr>
+                    <td>{{stadium[0]}}</td>
+                    <td>{{stadium[1]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
