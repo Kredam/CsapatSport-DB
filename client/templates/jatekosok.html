@@ -2,23 +2,36 @@
 
 {% block title %} Matches {% endblock %}
 
-{% block content %}
+{% block csapatok_link %} class="nav-link" {% endblock %}
+{% block jatekosok_link %} class="nav-link active" {% endblock %}
+{% block meccsek_link %} class="nav-link" {% endblock %}
+{% block stadionok_link %} class="nav-link" {% endblock %}
+
+{% block input %}
+
+{% endblock %}
+
+{% block table %}
     <div class="sql_table_div">
         <table class="sql_table">
-            <tr>
-                <th>id</th>
-                <th>Team's name</th>
-                <th>Player's name</th>
-                <th>Pitch Position</th>
-                <th>Shirt Number</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>badge</th>
+                    <th>id</th>
+                    <th>Team's name</th>
+                    <th>Player's name</th>
+                    <th>Pitch Position</th>
+                    <th>Shirt Number</th>
+                </tr>
+            </thead>
             {% for player in players %}
                 <tr>
-                    <td>{{player[0]}}</td>
-                    <td>{{player[1]}}</td>
-                    <td>{{player[2]}}</td>
-                    <td>{{player[3]}}</td>
-                    <td>{{player[4]}}</td>
+                    <td><img src={{player["badge"]}}></td>
+                    <td>{{player["id"]}}</td>
+                    <td>{{player["club"]}}</td>
+                    <td>{{player["name"]}}</td>
+                    <td>{{player["position"]}}</td>
+                    <td>{{player["number"]}}</td>
                 </tr>
             {% endfor %}
         </table>
