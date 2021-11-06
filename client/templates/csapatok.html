@@ -1,31 +1,47 @@
 {% extends 'base.html' %}
 
-{% block title %} Matches {% endblock %}
+{% block csapatok_link %} class="nav-link active" {% endblock %}
+{% block jatekosok_link %} class="nav-link" {% endblock %}
+{% block meccsek_link %} class="nav-link" {% endblock %}
+{% block stadionok_link %} class="nav-link" {% endblock %}
 
-{% block content %}
+{% block input %}
+    <div class="query_input_div">
+        <form action="#" method="POST">
+            <label class="input_labels" for="team_input">Teams's name</label>
+            <input type="text" class="input_field" name="team" id="team_input">
+            <label class="input_labels" for="abbr_input">Teams's abbreviation</label>
+            <input type="text" class="input_field" name="abbreviation" id="abbr_input">
+            <input type="submit" value="submit">
+        </form>
+    </div>
+{% endblock %}
+
+{% block table %}
     <div class="sql_table_div">
         <table class="sql_table">
-            <tr>
-                <th></th>
-                <th>Team's name</th>
-                <th>abbreviation</th>
-                <th>Table position</th>
-                <th>Matches_played</th>
-                <th>Wins</th>
-                <th>Draw</th>
-                <th>Loss</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Team's name</th>
+                    <th>abbreviation</th>
+                    <th>Points</th>
+                    <th>Matches_played</th>
+                    <th>Wins</th>
+                    <th>Draw</th>
+                    <th>Loss</th>
+                </tr>
+            </thead>
             {% for team in teams %}
                 <tr>
-                    <td><img src={{team[3]}}></td>
-                    <td>{{team[0]}}</td>
-                    <td>{{team[1]}}</td>
-                    <td>{{team[4]}}</td>
-                    <td>{{team[5]}}</td>
-                    <td>{{team[6]}}</td>
-                    <td>{{team[7]}}</td>
-                    <td>{{team[8]}}</td>
-                    <td>{{team[9]}}</td>
+                    <td><img src={{team["badge"]}}></td>
+                    <td>{{team["name"]}}</td>
+                    <td>{{team["abbreviation"]}}</td>
+                    <td>{{team["points"]}}</td>
+                    <td>{{team["matches_played"]}}</td>
+                    <td>{{team["W"]}}</td>
+                    <td>{{team["D"]}}</td>
+                    <td>{{team["L"]}}</td>
                 </tr>
             {% endfor %}
         </table>
