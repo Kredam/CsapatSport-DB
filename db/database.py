@@ -11,7 +11,7 @@ db = mysql.connector.connect(
     database="csapatsport"
 )
 
-cursor = db.cursor(buffered=True)
+cursor = db.cursor(buffered=True, dictionary=True)
 
 
 def create_database():
