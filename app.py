@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 import os
 from db import database
 from other import scraper
@@ -11,14 +11,22 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 def home():
     return render_template("home.html")
 
-@app.route('/teams')
+@app.route('/teams', methods=['GET','POST'])
 def teams():
-    database.cursor.execute("SELECT * FROM csapatok")
+    database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
+    if request.method == 'POST':
+        team_name = request.form.get('team')
+        abbr = request.form.get('abbreviation')
+        if team_name.strip() != "" or abbr.strip() != "":
+            database.cursor.execute(f"SELECT * FROM csapatok WHERE name LIKE '{team_name}' OR abbreviation LIKE '{abbr}'")
+        else:
+            database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
+    print()
     return render_template("csapatok.html", teams=database.cursor)
 
 @app.route('/players')
 def players():
-    database.cursor.execute("SELECT * FROM jatekosok")
+    database.cursor.execute("SELECT * FROM jatekosok INNER JOIN csapatok on csapatok.name = jatekosok.club")
     return render_template("jatekosok.html", players=database.cursor)
 
 @app.route('/matches')
@@ -30,6 +38,7 @@ def matches():
 def stadiums():
     database.cursor.execute("SELECT * FROM stadion")
     return render_template("stadionok.html", stadiums=database.cursor)
+
 
 if __name__ == '__main__':
     database.create_database()
