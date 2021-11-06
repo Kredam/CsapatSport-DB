@@ -9,8 +9,8 @@ INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Everton', 'Tottenham
 INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Leeds United', 'Leicester City', '2021-11-7 14:00:00');
 INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Leicester City', 'Leeds United', '2021-11-7 14:00:00');
 INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Liverpool', 'West Ham United', '2021-11-7 16:30:00');
-INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Manchester City', 'Manchester United', '2021-11-6 12:30:00');
-INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Manchester United', 'Manchester City', '2021-11-6 12:30:00');
+INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Manchester City', 'Everton', '2021-11-2 14:00:00');
+INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Manchester United', 'Watford', '2021-11-2 15:00:00');
 INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Newcastle United', 'Brighton and Hove Albion', '2021-11-6 17:30:00');
 INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Norwich City', 'Brentford', '2021-11-6 15:00:00');
 INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('Southampton', 'Norwich City', '2021-11-2 15:00:00');
