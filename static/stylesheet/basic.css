@@ -15,8 +15,17 @@ table{
 	box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
+i{
+    padding-left: 10px;
+    font-size: xx-large;
+}
+
 thead th{
     background-color: #55608f;
+}
+
+input{
+    margin: 10px !important;
 }
 
 th, td{
