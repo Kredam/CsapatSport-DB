@@ -84,7 +84,6 @@ class scraper:
                 "data-size": 25}).findChild("img")["src"]
             position = soup.find("tr", attrs={"data-filtered-table-row-name": club})['data-position']
             team_stat = soup.find("tr", attrs={"data-filtered-table-row-name": club}).findChildren("td", class_=False)
-            points = soup.find("tr", attrs={"data-filtered-table-row-name": club}).find("td", class_="points").text
             abbreviation = soup.find("tr", attrs={"data-filtered-table-row-name": club}).find("span",
                                                                                               class_="short").text
             matches_played = team_stat[0].text
@@ -98,7 +97,8 @@ class scraper:
             match_data = soup.find("tr", attrs={
                 "data-filtered-table-row-expander": soup.find("tr", attrs={"data-filtered-table-row-name": club})[
                     "data-filtered-table-row"]}).find_all("div", class_="resultWidget")
-            statement = f"INSERT INTO csapatok(name, abbreviation, badge, position, matches_played, W, D, L) VALUES ('{club}', '{abbreviation}', '{badge}', {position}, {matches_played}, {wins}, {draw}, {loss});\n"
+            points = int(wins)*3+int(draw)
+            statement = f"INSERT INTO csapatok(name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES ('{club}', '{abbreviation}', '', '{badge}', {points}, {matches_played}, {wins}, {draw}, {loss});\n"
             self.write_to_sql_file("db/sql/insert_teams.sql", statement)
             self.next_match(match_data, abbreviation, club)
             self.scrape_players_data(club)

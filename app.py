@@ -13,7 +13,7 @@ def home():
 
 @app.route('/teams')
 def teams():
-    database.cursor.execute("SELECT * FROM csapatok")
+    database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
     return render_template("csapatok.html", teams=database.cursor)
 
 @app.route('/players')

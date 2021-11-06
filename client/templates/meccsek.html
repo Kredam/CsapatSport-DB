@@ -2,14 +2,16 @@
 
 {% block title %} Matches {% endblock %}
 
-{% block content %}
+{% block table %}
     <div class="sql_table_div">
         <table class="sql_table">
-            <tr>
-                <th>Team's name</th>
-                <th>Enemy's name</th>
-                <th>Date</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Team's name</th>
+                    <th>Enemy's name</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
             {% for match in matches %}
                 <tr>
                     <td>{{match[0]}}</td>

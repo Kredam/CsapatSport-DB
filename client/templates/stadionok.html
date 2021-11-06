@@ -2,13 +2,15 @@
 
 {% block title %} Stadiums {% endblock %}
 
-{% block content %}
+{% block table %}
     <div class="sql_table_div">
         <table class="sql_table">
-            <tr>
-                <th>Team's name</th>
-                <th>Stadium's name</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Team's name</th>
+                    <th>Stadium's name</th>
+                </tr>
+            </thead>
             {% for stadium in stadiums %}
                 <tr>
                     <td>{{stadium[0]}}</td>

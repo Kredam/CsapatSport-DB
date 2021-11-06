@@ -3,7 +3,7 @@ body{
     margin: 0;
     padding: 0;
     background: rgb(56,56,56);
-    background: linear-gradient(0deg, rgba(56,56,56,1) 45%, rgba(35,35,35,1) 80%, rgba(13,13,13,1) 100%);
+    background: linear-gradient(45deg, #49a09d, #5f2c82);
 }
 
 nav a:link, nav a:visited, nav a{
@@ -30,12 +30,22 @@ nav a:hover{
     text-decoration: none;
 }
 
-.sql_table_div table{
-    align-content: center;
+table{
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+	border-collapse: collapse;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
-table th, table td{
+thead th{
+    background-color: #55608f;
+}
+
+th, td{
+    padding: 15px;
+	background-color: rgba(255,255,255,0.2);
+	color: #fff;
     text-align: left;
-    padding-bottom: 10px;
-    padding-right: 18px;
 }

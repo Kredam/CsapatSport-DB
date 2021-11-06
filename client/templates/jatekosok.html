@@ -2,16 +2,18 @@
 
 {% block title %} Matches {% endblock %}
 
-{% block content %}
+{% block table %}
     <div class="sql_table_div">
         <table class="sql_table">
-            <tr>
-                <th>id</th>
-                <th>Team's name</th>
-                <th>Player's name</th>
-                <th>Pitch Position</th>
-                <th>Shirt Number</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Team's name</th>
+                    <th>Player's name</th>
+                    <th>Pitch Position</th>
+                    <th>Shirt Number</th>
+                </tr>
+            </thead>
             {% for player in players %}
                 <tr>
                     <td>{{player[0]}}</td>

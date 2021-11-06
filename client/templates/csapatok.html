@@ -2,19 +2,21 @@
 
 {% block title %} Matches {% endblock %}
 
-{% block content %}
+{% block table %}
     <div class="sql_table_div">
         <table class="sql_table">
-            <tr>
-                <th></th>
-                <th>Team's name</th>
-                <th>abbreviation</th>
-                <th>Table position</th>
-                <th>Matches_played</th>
-                <th>Wins</th>
-                <th>Draw</th>
-                <th>Loss</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Team's name</th>
+                    <th>abbreviation</th>
+                    <th>Points</th>
+                    <th>Matches_played</th>
+                    <th>Wins</th>
+                    <th>Draw</th>
+                    <th>Loss</th>
+                </tr>
+            </thead>
             {% for team in teams %}
                 <tr>
                     <td><img src={{team[3]}}></td>
@@ -25,7 +27,6 @@
                     <td>{{team[6]}}</td>
                     <td>{{team[7]}}</td>
                     <td>{{team[8]}}</td>
-                    <td>{{team[9]}}</td>
                 </tr>
             {% endfor %}
         </table>
