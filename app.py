@@ -13,15 +13,33 @@ def home():
 
 @app.route('/teams', methods=['GET','POST'])
 def teams():
-    database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
     if request.method == 'POST':
-        team_name = request.form.get('team')
+        list_button = request.form.get('list')
+        add_button = request.form.get('add')
+        remove_button = request.form.get('remove')
+        club = request.form.get('team')
         abbr = request.form.get('abbreviation')
-        if team_name.strip() != "" or abbr.strip() != "":
-            database.cursor.execute(f"SELECT * FROM csapatok WHERE name LIKE '{team_name}' OR abbreviation LIKE '{abbr}'")
-        else:
-            database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
-    print()
+        badge = request.form.get('badge')
+        stadium = request.form.get('stadium')
+        wins = request.form.get('wins')
+        draws = request.form.get('draws')
+        loss = request.form.get('loss')
+        points = wins*3 + draws
+        matches_played = wins+draws+loss
+        if list_button:
+            database.cursor.execute(f"SELECT * FROM csapatok WHERE name LIKE '{club}' OR "
+                                    f"abbreviation LIKE '{abbr}' OR "
+                                    f"stadium LIKE '{stadium}'")
+        if add_button:
+            if club.strip() != "":
+                database.cursor.execute(f"INSERT INTO csapatok (name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES"
+                                        f"('{club}', '{abbr}', '{stadium}', '{badge}', {points}, {matches_played}, {wins}, {draws}, {loss})")
+                database.db.commit()
+        if remove_button:
+            database.cursor.execute(f"DELETE * FROM csapatok WHERE name LIKE '{club}' OR abbreviation LIKE '{abbr}'")
+    else:
+        database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
+        database.db.commit()
     return render_template("csapatok.html", teams=database.cursor)
 
 @app.route('/players')
@@ -38,6 +56,7 @@ def matches():
 def stadiums():
     database.cursor.execute("SELECT * FROM stadion")
     return render_template("stadionok.html", stadiums=database.cursor)
+
 
 
 if __name__ == '__main__':
