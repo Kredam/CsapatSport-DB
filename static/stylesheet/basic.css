@@ -34,3 +34,47 @@ th, td{
 	color: #fff;
     text-align: left;
 }
+
+h1{
+    text-align: center;
+    align: center;
+}
+
+#Ball{
+    animation: ball 1s infinite alternate;
+}
+
+#JugglingLeg{
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: moveLeg 1s infinite linear alternate;
+}
+
+#Others{
+    animation: player 1s infinite alternate;
+}
+
+@keyframes player {
+    from{
+        transform: translateY(-3px);
+    }to{
+        transform: translateY(5px);
+         }
+}
+
+@keyframes moveLeg{
+    from{
+        transform: rotate(2deg) translateX(-10px) translateY(-5px);
+
+    }to{
+        transform: rotate(10deg) translateX(-7px);
+    }
+ }
+
+@keyframes ball{
+    from{
+        transform: translateY(-50px);
+    }to{
+         transform: translateY(10px);
+    }
+}
