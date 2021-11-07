@@ -10,11 +10,16 @@
         <div class="mx-auto" style="width: 300px">
             <div class="input-group mb-3">
                 <form action="#" method="POST">
-                    <input type="text" class="form-control" name="team" id="team_input" placeholder="Team's name">
-                    <input type="text" class="form-control" name="abbreviation" id="abbr_input" placeholder="Abbreviation">
-                    <input type="submit" value="List" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="List Record">
-                    <input type="submit" value="Add" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Add Record to Table">
-                    <input type="submit" value="Remove" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete Record from Table">
+                    <input type="text" class="form-control" name="team" id="team_field" placeholder="Team's name">
+                    <input type="text" class="form-control" name="abbreviation" id="abbr_field" placeholder="Abbreviation">
+                    <input type="text" class="form-control" name="stadium" id="stadium_field" placeholder="stadium">
+                    <input type="url" class="form-control" name="badge" id="badge_field" placeholder="Badge URL">
+                    <input type="number" class="form-control" name="wins" id="win_field" placeholder="Wins">
+                    <input type="number" class="form-control" name="draws" id="draw_field" placeholder="Draws">
+                    <input type="number" class="form-control" name="loss" id="loss_field" placeholder="Loss">
+                    <input type="submit" value="List" class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record">
+                    <input type="submit" value="Add" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record to Table">
+                    <input type="submit" value="Remove" class="btn btn-danger" name="remove" data-toggle="tooltip" data-placement="bottom" title="Delete Record from Table">
                 </form>
             </div>
         </div>
@@ -22,22 +27,24 @@
 {% endblock %}
 
 {% block table %}
-    <div class="sql_table_div">
-        <table class="sql_table">
+    <div class="table-responsive-sm">
+        <table class="table table-hover table-dark">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>Team's name</th>
-                    <th>abbreviation</th>
-                    <th>Points</th>
-                    <th>Matches_played</th>
-                    <th>Wins</th>
-                    <th>Draw</th>
-                    <th>Loss</th>
+                    <th scope="col"></th>
+                    <th scopre="col">Table position</th>
+                    <th scopre="col">Team's name</th>
+                    <th scopre="col">abbreviation</th>
+                    <th scopre="col">Points</th>
+                    <th scopre="col">Matches_played</th>
+                    <th scopre="col">Wins</th>
+                    <th scopre="col">Draw</th>
+                    <th scopre="col">Loss</th>
                 </tr>
             </thead>
             {% for team in teams %}
                 <tr>
+                    <td><img src={{team["badge"]}}></td>
                     <td><img src={{team["badge"]}}></td>
                     <td>{{team["name"]}}</td>
                     <td>{{team["abbreviation"]}}</td>
