@@ -6,14 +6,18 @@
 {% block stadionok_link %} class="nav-link" {% endblock %}
 
 {% block input %}
-    <div class="query_input_div">
-        <form action="#" method="POST">
-            <label class="input_labels" for="team_input">Teams's name</label>
-            <input type="text" class="input_field" name="team" id="team_input">
-            <label class="input_labels" for="abbr_input">Teams's abbreviation</label>
-            <input type="text" class="input_field" name="abbreviation" id="abbr_input">
-            <input type="submit" value="submit">
-        </form>
+    <div class="row" style="padding-top: 30px">
+        <div class="mx-auto" style="width: 300px">
+            <div class="input-group mb-3">
+                <form action="#" method="POST">
+                    <input type="text" class="form-control" name="team" id="team_input" placeholder="Team's name">
+                    <input type="text" class="form-control" name="abbreviation" id="abbr_input" placeholder="Abbreviation">
+                    <input type="submit" value="List" class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="List Record">
+                    <input type="submit" value="Add" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Add Record to Table">
+                    <input type="submit" value="Remove" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Delete Record from Table">
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
