@@ -10,21 +10,29 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div class=".container">
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class=".container-sm">
+        <nav class="navbar navbar-expand-sm sticky-top navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
             <li class="navbar-brand"><i class="fas fa-database"></i></li>
-            <ul class="navbar-nav">
-                <li class="nav-item"><a {% block csapatok_link %}{% endblock %} href="/teams">Csapatok</a></li>
-                <li class="nav-item"><a {% block jatekosok_link %}{% endblock %} href="/players">Játékosok</a></li>
-                <li class="nav-item"><a {% block meccsek_link %}{% endblock %} href="/matches">Meccsek</a></li>
-                <li class="nav-item"><a {% block stadionok_link %}{% endblock %} href="/stadiums">Stadionok</a></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
+                    <li class="nav-item"><a {% block csapatok_link %}{% endblock %} href="/teams">Csapatok</a></li>
+                    <li class="nav-item"><a {% block jatekosok_link %}{% endblock %} href="/players">Játékosok</a></li>
+                    <li class="nav-item"><a {% block meccsek_link %}{% endblock %} href="/matches">Meccsek</a></li>
+                    <li class="nav-item"><a {% block stadionok_link %}{% endblock %} href="/stadiums">Stadionok</a></li>
+                </ul>
+            </div>
         </nav>
+
+    {% block intro %} {% endblock %}
 
     {% block input %} {% endblock %}
 
     {% block table %}{% endblock %}
     </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
