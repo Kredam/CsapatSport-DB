@@ -17,9 +17,10 @@
                     <input type="number" class="form-control" name="wins" id="win_field" placeholder="Wins">
                     <input type="number" class="form-control" name="draws" id="draw_field" placeholder="Draws">
                     <input type="number" class="form-control" name="loss" id="loss_field" placeholder="Loss">
-                    <input type="submit" value="List" class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record">
-                    <input type="submit" value="Add" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record to Table">
-                    <input type="submit" value="Remove" class="btn btn-danger" name="remove" data-toggle="tooltip" data-placement="bottom" title="Delete Record from Table">
+                    <input type="submit" style="padding-left: 6px;" type="submit" class="btn btn-primary" value="Update" name="update" data-toggle="tooltip" data-placement="bottom" title="Update Record">
+                    <input type="submit" style="padding-left: 6px;" type="submit" value="Add" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record">
+                    <input type="submit" style="padding-left: 6px;" type="submit" value="Rm" class="btn btn-danger" name="remove" data-toggle="tooltip" data-placement="bottom" title="Delete Record">
+                    <input type="submit" style="padding-left: 6px;" type="submit" value="..." class="btn btn-info" name="remove" data-toggle="tooltip" data-placement="bottom" title="List Record">
                 </form>
             </div>
         </div>
@@ -28,11 +29,11 @@
 
 {% block table %}
     <div class="table-responsive-sm">
-        <table class="table table-hover table-dark">
+        <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scopre="col">Table position</th>
+                    <th scopre="col"></th>
+                    <th scope="col">#</th>
                     <th scopre="col">Team's name</th>
                     <th scopre="col">abbreviation</th>
                     <th scopre="col">Points</th>
@@ -45,7 +46,7 @@
             {% for team in teams %}
                 <tr>
                     <td><img src={{team["badge"]}}></td>
-                    <td><img src={{team["badge"]}}></td>
+                    <td>{{team["position"]}}</td>
                     <td>{{team["name"]}}</td>
                     <td>{{team["abbreviation"]}}</td>
                     <td>{{team["points"]}}</td>
