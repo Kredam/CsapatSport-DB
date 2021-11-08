@@ -1,6 +1,8 @@
-CREATE TABLE Csapatok(  name VARCHAR(50) UNIQUE PRIMARY KEY NOT NULL,
+CREATE TABLE Csapatok(  position  INT,
+                        name VARCHAR(50) UNIQUE PRIMARY KEY NOT NULL,
                         abbreviation VARCHAR(3),
-                        stadium VARCHAR(60),
+                        stadium VARCHAR(50),
+                        FOREIGN KEY (stadium) REFERENCES Stadion(name),
                         badge VARCHAR(100),
                         points INT,
                         matches_played INT,
@@ -19,7 +21,7 @@ CREATE TABLE Jatekosok( id INT PRIMARY KEY,
                         ON UPDATE CASCADE);
 
 
-CREATE TABLE Meccsek(   team VARCHAR(50) NOT NULL,
+CREATE TABLE Meccsek(   team VARCHAR(50) NOT NULL PRIMARY KEY,
                         PRIMARY KEY(team),
                         enemy_team VARCHAR(50) NOT NULL,
                         takes_place DATETIME,
