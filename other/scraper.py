@@ -86,6 +86,7 @@ class scraper:
             team_stat = soup.find("tr", attrs={"data-filtered-table-row-name": club}).findChildren("td", class_=False)
             abbreviation = soup.find("tr", attrs={"data-filtered-table-row-name": club}).find("span",
                                                                                               class_="short").text
+            position = soup.find("tr", attrs={"data-filtered-table-row-name": club}).findChild("span").text
             matches_played = team_stat[0].text
             wins = team_stat[1].text
             draw = team_stat[2].text
@@ -98,7 +99,7 @@ class scraper:
                 "data-filtered-table-row-expander": soup.find("tr", attrs={"data-filtered-table-row-name": club})[
                     "data-filtered-table-row"]}).find_all("div", class_="resultWidget")
             points = int(wins)*3+int(draw)
-            statement = f"INSERT INTO csapatok(name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES ('{club}', '{abbreviation}', '', '{badge}', {points}, {matches_played}, {wins}, {draw}, {loss});\n"
+            statement = f"INSERT INTO csapatok(position, name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES ({position}, '{club}', '{abbreviation}', '', '{badge}', {points}, {matches_played}, {wins}, {draw}, {loss});\n"
             self.write_to_sql_file("db/sql/insert_teams.sql", statement)
             self.next_match(match_data, abbreviation, club)
             self.scrape_players_data(club)
