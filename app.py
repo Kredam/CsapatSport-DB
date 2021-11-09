@@ -11,52 +11,51 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 def home():
     return render_template("home.html")
 
-@app.route('/teams', methods=['GET','POST'])
+
+@app.route('/teams', methods=['GET', 'POST'])
 def teams():
     if request.method == 'POST':
+        update_button = request.form.get('update')
         list_button = request.form.get('list')
         add_button = request.form.get('add')
         remove_button = request.form.get('remove')
-        club = request.form.get('team')
+        club = request.form.get('team_name')
+        club = request.form.get('name')
         abbr = request.form.get('abbreviation')
-        badge = request.form.get('badge')
-        stadium = request.form.get('stadium')
-        wins = request.form.get('wins')
-        draws = request.form.get('draws')
-        loss = request.form.get('loss')
-        points = wins*3 + draws
-        matches_played = wins+draws+loss
-        if list_button:
-            database.cursor.execute(f"SELECT * FROM csapatok WHERE name LIKE '{club}' OR "
-                                    f"abbreviation LIKE '{abbr}' OR "
-                                    f"stadium LIKE '{stadium}'")
-        if add_button:
-            if club.strip() != "":
-                database.cursor.execute(f"INSERT INTO csapatok (name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES"
-                                        f"('{club}', '{abbr}', '{stadium}', '{badge}', {points}, {matches_played}, {wins}, {draws}, {loss})")
-                database.db.commit()
-        if remove_button:
-            database.cursor.execute(f"DELETE * FROM csapatok WHERE name LIKE '{club}' OR abbreviation LIKE '{abbr}'")
+        if list_button and club.strip() != "":
+            database.cursor.execute(f"SELECT * FROM csapatok WHERE name LIKE '{club}';")
+        elif update_button:
+            database.cursor.execute(f"UPDATE csapatok SET abbreviation = '{abbr}' WHERE name = '{club}'")
+            database.db.commit()
+        elif add_button and club.strip() != "":
+            database.cursor.execute(f"INSERT INTO csapatok (name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES ('{club}');")
+            database.db.commit()
+        elif remove_button and club.strip() != "":
+            database.cursor.execute(f"DELETE FROM csapatok WHERE name LIKE '{club}';")
+            database.db.commit()
+        else:
+            database.cursor.execute(("SELECT * FROM csapatok ORDER BY points DESC "))
     else:
         database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
-        database.db.commit()
     return render_template("csapatok.html", teams=database.cursor)
+
 
 @app.route('/players')
 def players():
     database.cursor.execute("SELECT * FROM jatekosok INNER JOIN csapatok on csapatok.name = jatekosok.club")
     return render_template("jatekosok.html", players=database.cursor)
 
+
 @app.route('/matches')
 def matches():
     database.cursor.execute("SELECT * FROM meccsek")
     return render_template("meccsek.html", matches=database.cursor)
 
+
 @app.route('/stadiums')
 def stadiums():
     database.cursor.execute("SELECT * FROM stadion")
     return render_template("stadionok.html", stadiums=database.cursor)
-
 
 
 if __name__ == '__main__':

@@ -11,20 +11,30 @@
             <div class="input-group mb-3">
                 <form action="#" method="POST">
                     <input type="text" class="form-control" name="team" id="team_field" placeholder="Team's name">
-                    <input type="text" class="form-control" name="abbreviation" id="abbr_field" placeholder="Abbreviation">
-                    <input type="text" class="form-control" name="stadium" id="stadium_field" placeholder="stadium">
-                    <input type="url" class="form-control" name="badge" id="badge_field" placeholder="Badge URL">
-                    <input type="number" class="form-control" name="wins" id="win_field" placeholder="Wins">
-                    <input type="number" class="form-control" name="draws" id="draw_field" placeholder="Draws">
-                    <input type="number" class="form-control" name="loss" id="loss_field" placeholder="Loss">
-                    <input type="submit" style="padding-left: 6px;" type="submit" class="btn btn-primary" value="Update" name="update" data-toggle="tooltip" data-placement="bottom" title="Update Record">
-                    <input type="submit" style="padding-left: 6px;" type="submit" value="Add" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record">
-                    <input type="submit" style="padding-left: 6px;" type="submit" value="Rm" class="btn btn-danger" name="remove" data-toggle="tooltip" data-placement="bottom" title="Delete Record">
-                    <input type="submit" style="padding-left: 6px;" type="submit" value="..." class="btn btn-info" name="remove" data-toggle="tooltip" data-placement="bottom" title="List Record">
+                    <button type="submit" type="submit" class="btn btn-success" value="add" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record"><i class="far fa-plus-square"></i></button>
+                    <button type="submit" value="Rm" class="btn btn-danger" name="remove" data-toggle="tooltip" data-placement="bottom" title="Delete Record"><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                    <button type="submit" value="..." class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record"><i class="fas fa-list"></i></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-toggle="tooltip" data-placement="bottom" title="Update Record" data-target="#exampleModal"><i style="padding-left: 2px" class="far fa-edit"></i></button>
                 </form>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block update_inputs %}
+    <label for="teams_name">Team's name</label>
+    <input type="text" class="form-control" name="teams_name" id="teams_name" placeholder="Team's name">
+    <label for="abbr_field">Abbrevation</label>
+    <input type="text" class="form-control" name="abbreviation" id="abbr_field" placeholder="Abbreviation">
+    <label for="abbr_field">Badge(URL)</label>
+    <input type="url" class="form-control" name="badge" id="badge_field" placeholder="Badge URL">
+    <label for="win_field">Wins</label>
+    <input type="number" class="form-control" value="0" name="wins" id="win_field" placeholder="Wins">
+    <label for="draw_field">Draws</label>
+    <input type="number" class="form-control" value="0" name="draws" id="draw_field" placeholder="Draws">
+    <label for="loss_field">Loss</label>
+    <input type="number" class="form-control" value="0" name="loss" id="loss_field" placeholder="Loss">
+    <input type="submit" name="update" value="Update">
 {% endblock %}
 
 {% block table %}
@@ -32,19 +42,23 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scopre="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                     <th scope="col">#</th>
-                    <th scopre="col">Team's name</th>
-                    <th scopre="col">abbreviation</th>
-                    <th scopre="col">Points</th>
-                    <th scopre="col">Matches_played</th>
-                    <th scopre="col">Wins</th>
-                    <th scopre="col">Draw</th>
-                    <th scopre="col">Loss</th>
+                    <th scope="col">Team's name</th>
+                    <th scope="col">abbreviation</th>
+                    <th scope="col">Points</th>
+                    <th scope="col">Matches_played</th>
+                    <th scope="col">Wins</th>
+                    <th scope="col">Draw</th>
+                    <th scope="col">Loss</th>
                 </tr>
             </thead>
             {% for team in teams %}
                 <tr>
+                    <td>
+<!--                        <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#exampleModal"><i style="padding-left: 2px" class="far fa-edit"></i></button>-->
+                    </td>
                     <td><img src={{team["badge"]}}></td>
                     <td>{{team["position"]}}</td>
                     <td>{{team["name"]}}</td>
