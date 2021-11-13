@@ -14,7 +14,6 @@
                     <button type="submit" type="submit" class="btn btn-success" value="add" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record"><i class="far fa-plus-square"></i></button>
                     <button type="submit" value="Rm" class="btn btn-danger" name="remove" data-toggle="tooltip" data-placement="bottom" title="Delete Record"><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
                     <button type="submit" value="..." class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record"><i class="fas fa-list"></i></button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-toggle="tooltip" data-placement="bottom" title="Update Record" data-target="#exampleModal"><i style="padding-left: 2px" class="far fa-edit"></i></button>
                 </form>
             </div>
         </div>
@@ -23,7 +22,7 @@
 
 {% block update_inputs %}
     <label for="teams_name">Team's name</label>
-    <input type="text" class="form-control" name="teams_name" id="teams_name" placeholder="Team's name">
+    <input type="text" class="form-control" value="" name="teams_name" id="teams_name" placeholder="Team's name" disabled>
     <label for="abbr_field">Abbrevation</label>
     <input type="text" class="form-control" name="abbreviation" id="abbr_field" placeholder="Abbreviation">
     <label for="abbr_field">Badge(URL)</label>
@@ -57,7 +56,7 @@
             {% for team in teams %}
                 <tr>
                     <td>
-<!--                        <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#exampleModal"><i style="padding-left: 2px" class="far fa-edit"></i></button>-->
+                        <button type="submit" id="specific_team_update" class="btn btn-primary" value="+" style="padding:2px" data-teamname="{{team['name']}}" data-toggle="modal" data-target="#exampleModal"><i style="padding-left: 2px" class="far fa-edit"></i></button>
                     </td>
                     <td><img src={{team["badge"]}}></td>
                     <td>{{team["position"]}}</td>
