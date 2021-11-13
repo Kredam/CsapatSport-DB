@@ -19,8 +19,7 @@ def teams():
         list_button = request.form.get('list')
         add_button = request.form.get('add')
         remove_button = request.form.get('remove')
-        club = request.form.get('team_name')
-        club = request.form.get('name')
+        club = request.form.get('team')
         abbr = request.form.get('abbreviation')
         if list_button and club.strip() != "":
             database.cursor.execute(f"SELECT * FROM csapatok WHERE name LIKE '{club}';")
