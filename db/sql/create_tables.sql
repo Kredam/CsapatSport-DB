@@ -1,8 +1,7 @@
-CREATE TABLE Csapatok(  position  INT,
-                        name VARCHAR(50) UNIQUE PRIMARY KEY NOT NULL,
+CREATE TABLE Csapatok(  position INT,
+                        name VARCHAR(50) NOT NULL,
                         abbreviation VARCHAR(3),
-                        stadium VARCHAR(50),
-                        FOREIGN KEY (stadium) REFERENCES Stadion(name),
+                        stadium VARCHAR(100),
                         badge VARCHAR(100),
                         points INT,
                         matches_played INT,
@@ -11,27 +10,27 @@ CREATE TABLE Csapatok(  position  INT,
                         L INT);
 
 
-CREATE TABLE Jatekosok( id INT PRIMARY KEY,
-                        club VARCHAR(50),
+CREATE TABLE Jatekosok( id INT,
+                        club VARCHAR(50) NOT NULL,
                         name VARCHAR(50),
                         position VARCHAR(30),
-                        number INT,
-                        FOREIGN KEY (club) REFERENCES Csapatok(name)
-                        ON DELETE CASCADE
-                        ON UPDATE CASCADE);
+                        number INT);
 
 
-CREATE TABLE Meccsek(   team VARCHAR(50) NOT NULL PRIMARY KEY,
-                        PRIMARY KEY(team),
+CREATE TABLE Meccsek(   team VARCHAR(50) NOT NULL,
                         enemy_team VARCHAR(50) NOT NULL,
-                        takes_place DATETIME,
-                        FOREIGN KEY (team) REFERENCES Csapatok(name)
-                        ON DELETE CASCADE
-                        ON UPDATE CASCADE);
+                        takes_place DATE);
 
 
-CREATE TABLE Stadion(   team VARCHAR(50),
-                        name VARCHAR(100) PRIMARY KEY,
-                        FOREIGN KEY (team) REFERENCES Csapatok(name)
-                        ON DELETE CASCADE
-                        ON UPDATE CASCADE);
+CREATE TABLE Stadion(   team VARCHAR(50) NOT NULL,
+                        name VARCHAR(100));
+
+ALTER TABLE Csapatok ADD PRIMARY KEY(name);
+ALTER TABLE Stadion ADD PRIMARY KEY(name);
+ALTER TABLE Jatekosok ADD PRIMARY KEY(id);
+ALTER TABLE Meccsek ADD PRIMARY KEY(team);
+
+ALTER TABLE Csapatok ADD FOREIGN KEY (stadium) REFERENCES Stadion(name) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE Jatekosok ADD FOREIGN KEY (club) REFERENCES Csapatok(name) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE Meccsek ADD FOREIGN KEY (team) REFERENCES Csapatok(name) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE Stadion ADD FOREIGN KEY (team) REFERENCES Csapatok(name) ON UPDATE CASCADE ON DELETE CASCADE;
