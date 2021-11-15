@@ -1,11 +1,14 @@
 import cmd
 import re
-
+from selenium import webdriver
 import requests
+import time
 from bs4 import BeautifulSoup
 import os
 
 import urllib.request
+
+PATH = os.getcwd()+"\\other\\chromedriver.exe"
 
 URL = "https://www.premierleague.com/tables"
 premier_league = requests.get(URL)
@@ -21,6 +24,10 @@ class scraper:
         self.team_website = ""
         self.scrape_clubs_data()
 
+    def scrape_stadium(self):
+        print(self.team_website)
+        # soup = BeautifulSoup(requests.get(self.team_website[:-8] + stadium_tab).content, 'html.parser')
+
     def scrape_players_data(self, club):
         player_list = list()
         soup = BeautifulSoup(requests.get(self.team_website).content, 'html.parser')
@@ -33,7 +40,7 @@ class scraper:
             player_nr = player_info.find("span", class_="number").text
             player_pos = player_info.find("span", class_="position").text
             if player_name not in player_list and player_nr.isdigit():
-                statement = f"INSERT INTO jatekosok(id, club, name, position, number) VALUES ({jatekos_id}, '{club}', '{player_name}', '{player_pos}', {int(player_nr)});\n"
+                statement = f"INSERT INTO Jatekosok(id, club, name, position, number) VALUES ({jatekos_id}, '{club}', '{player_name}', '{player_pos}', {int(player_nr)});\n"
                 self.write_to_sql_file("db/sql/insert_player.sql", statement)
                 jatekos_id += 1
 
@@ -78,6 +85,7 @@ class scraper:
         self.clear_file_content("db/sql/insert_player.sql")
         self.clear_file_content("db/sql/insert_teams.sql")
         for club in Clubs:
+            wd = webdriver.Chrome(PATH)
             if club == "Brighton & Hove Albion":
                 club = "Brighton and Hove Albion"
             badge = soup.find("tr", attrs={"data-filtered-table-row-name": club}).find("span", attrs={
@@ -99,10 +107,16 @@ class scraper:
                 "data-filtered-table-row-expander": soup.find("tr", attrs={"data-filtered-table-row-name": club})[
                     "data-filtered-table-row"]}).find_all("div", class_="resultWidget")
             points = int(wins)*3+int(draw)
-            statement = f"INSERT INTO csapatok(position, name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES ({position}, '{club}', '{abbreviation}', '', '{badge}', {points}, {matches_played}, {wins}, {draw}, {loss});\n"
+            wd.implicitly_wait(20)
+            wd.get(self.team_website[:-8] + "stadium")
+            print(self.team_website[:-8] + "stadium")
+            stadium_name = wd.find_element_by_css_selector('span.stadium').text.replace('\'', '\'\'')
+            print(stadium_name)
+            statement = f"INSERT INTO Csapatok(position, name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES ({position}, '{club}', '{abbreviation}', '{stadium_name}', '{badge}', {points}, {matches_played}, {wins}, {draw}, {loss});\n"
             self.write_to_sql_file("db/sql/insert_teams.sql", statement)
             self.next_match(match_data, abbreviation, club)
             self.scrape_players_data(club)
+            wd.quit()
 
     def clear_file_content(self, file_name):
         with open(file_name, "r+", encoding='utf-8') as f:
