@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../../static/stylesheet/basic.css">
     <script src="../../static/js/default_values"></script>
     <script src="https://kit.fontawesome.com/3de6b5ab59.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -17,14 +20,15 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <li class="navbar-brand"><i class="fas fa-database"></i></li>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
-                    <li class="nav-item"><a {% block csapatok_link %}{% endblock %} href="/teams">Csapatok</a></li>
-                    <li class="nav-item"><a {% block jatekosok_link %}{% endblock %} href="/players">Játékosok</a></li>
-                    <li class="nav-item"><a {% block meccsek_link %}{% endblock %} href="/matches">Meccsek</a></li>
-                    <li class="nav-item"><a {% block stadionok_link %}{% endblock %} href="/stadiums">Stadionok</a></li>
-                </ul>
-            </div>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <ul class="nav nav-pills navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a {% block csapatok_link %}{% endblock %} href="/teams">Csapatok</a></li>
+                        <li class="nav-item"><a {% block jatekosok_link %}{% endblock %} href="/players">Játékosok</a></li>
+                        <li class="nav-item"><a {% block meccsek_link %}{% endblock %} href="/matches">Meccsek</a></li>
+                        <li class="nav-item"><a {% block stadionok_link %}{% endblock %} href="/stadiums">Stadionok</a></li>
+                    </ul>
+                </div>
+                </div>
         </nav>
 
     {% block intro %} {% endblock %}
@@ -55,6 +59,7 @@
     {% block table %}{% endblock %}
     </div>
 
+    <script src="../../static/js/update.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
