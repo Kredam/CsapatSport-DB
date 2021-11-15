@@ -35,6 +35,16 @@ th, td{
     text-align: left;
 }
 
+button{
+    padding: 0 !important;
+    margin-left: 18px !important;
+}
+
+i{
+    padding: 2px;
+    margin: 2px;
+}
+
 h1{
     text-align: center;
     align: center;
