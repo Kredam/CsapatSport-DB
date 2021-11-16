@@ -12,9 +12,7 @@
                 <form action="#" method="POST">
                     <input type="text" class="form-control" name="team" id="team_field" placeholder="Team's name">
                     <button type="submit" type="submit" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record"><i class="far fa-plus-square"></i></button>
-                    <button type="submit" class="btn btn-danger" name="remove" data-toggle="tooltip" data-placement="bottom" title="Delete Record"><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
                     <button type="submit" class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record"><i class="fas fa-list"></i></button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-toggle="tooltip" data-placement="bottom" title="Update Record" data-target="#exampleModal"><i style="padding-left: 2px" class="far fa-edit"></i></button>
                 </form>
             </div>
         </div>
@@ -23,8 +21,8 @@
 
 {% block update_inputs %}
         <label for="teams_name">Team's name</label>
-        <input type="text" class="form-control" value="" name="teams_name" id="teams_name" placeholder="Team's name">
-        <label for="abbr_field">Abbrevation</label>
+        <input type="text" class="form-control" value="" name="teams_name" id="teams_name" placeholder="Team's name" disabled>
+        <label for="abbr_field">Abbreviation</label>
         <input type="text" class="form-control" name="abbreviation" id="abbr_field" placeholder="Abbreviation">
         <label for="abbr_field">Badge(URL)</label>
         <input type="url" class="form-control" name="badge" id="badge_field" placeholder="Badge URL">
@@ -44,6 +42,7 @@
                 <tr>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                     <th scope="col">#</th>
                     <th scope="col">Team's name</th>
                     <th scope="col">abbreviation</th>
@@ -57,8 +56,14 @@
             {% for team in teams %}
                 <tr>
                     <td>
-                        <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#exampleModal" id="team_update_button" data-team={{team["name"]}}><i style="padding-left: 2px" class="far fa-edit"></i></button>
+                        <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#exampleModal" id="specific_team_update" data-team={{team["name"].replace(' ', '_')}}><i style="padding-left: 2px" class="far fa-edit"></i></button>
                     </td>
+                    <form method="POST">
+                        <td>
+                            <input type="hidden" id="team_to_remove" value="" name="team_delete">
+                            <button type="submit" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record" data-team={{team["name"].replace(' ', '_')}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                        </td>
+                    </form>
                     <td><img src={{team["badge"]}}></td>
                     <td>{{team["position"]}}</td>
                     <td>{{team["name"]}}</td>
@@ -70,7 +75,7 @@
                     <td>{{team["L"]}}</td>
                 </tr>
             {% endfor %}
-            <script src="../../static/js/default_values"></script>
+            <script src="../../static/js/update.js"></script>
         </table>
     </div>
 {% endblock %}

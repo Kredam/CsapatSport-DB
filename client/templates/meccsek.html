@@ -6,20 +6,20 @@
 {% block stadionok_link %} class="nav-link" {% endblock %}
 
 {% block table %}
-    <div class="sql_table_div">
-        <table class="sql_table">
+    <div class="table-responsive-sm">
+        <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Team's name</th>
-                    <th>Enemy's name</th>
-                    <th>Date</th>
+                    <th scope="col">Team's name</th>
+                    <th scope="col">Enemy's name</th>
+                    <th scope="col">Date</th>
                 </tr>
             </thead>
             {% for match in matches %}
                 <tr>
-                    <td>{{match[0]}}</td>
-                    <td>{{match[1]}}</td>
-                    <td>{{match[2]}}</td>
+                    <td>{{match['team']}}</td>
+                    <td>{{match['enemy_team']}}</td>
+                    <td>{{match['takes_place']}}</td>
                 </tr>
             {% endfor %}
         </table>

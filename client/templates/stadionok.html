@@ -6,18 +6,20 @@
 {% block stadionok_link %} class="nav-link active" {% endblock %}
 
 {% block table %}
-    <div class="sql_table_div">
-        <table class="sql_table">
+    <div class="table-responsive-sm">
+        <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Team's name</th>
-                    <th>Stadium's name</th>
+                    <th scope="col"></th>
+                    <th scope="col">Team's name</th>
+                    <th scope="col">Stadium's name</th>
                 </tr>
             </thead>
             {% for stadium in stadiums %}
                 <tr>
-                    <td>{{stadium[0]}}</td>
-                    <td>{{stadium[1]}}</td>
+                    <td><img src={{stadium['badge']}}></td>
+                    <td>{{stadium['team']}}</td>
+                    <td>{{stadium['name']}}</td>
                 </tr>
             {% endfor %}
         </table>
