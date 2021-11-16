@@ -1,9 +1,0 @@
-var team_name = document.getElementById("team_update_button");
-var selected_team_to_update = "";
-team_name.addEventListener("click", () => {
-    console.log(team_name.getAttribute('data-team'))
-});
-console.log(selected_team_to_update)
-
-var team_name_update_field = document.getElementById('teams_name');
-console.log(team_name_update_field);
