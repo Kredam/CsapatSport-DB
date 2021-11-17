@@ -17,8 +17,7 @@ table{
 }
 
 i{
-    padding-left: 0px;
-    font-size: xx-large;
+    font-size: medium;
 }
 
 thead th{
@@ -30,9 +29,10 @@ input{
 }
 
 th, td{
-    padding: 10px;
+    padding: 5px;
 	background-color: rgba(255,255,255,0.2);
 	color: #fff;
+    vertical-align: middle !important;
     text-align: left;
 }
 
@@ -103,7 +103,7 @@ justify-content: space-between;
 }
 
 .btn{
-    padding: 10px !important;
+    padding: 5px !important;
     border-radius: 14.25rem !important;
 }
 
