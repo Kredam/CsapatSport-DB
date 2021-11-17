@@ -42,6 +42,15 @@ def create_tables():
                 statement += row
     db.commit()
 
+def triggers():
+    statement = ""
+    for row in open(os.path.join("db/sql", "triggers.sql")):
+        if re.search(r'END;$', row):
+            statement += row
+            cursor.execute(statement)
+            statement = ""
+        else:
+            statement += row
 
 def drop_tables():
     print(f"Executing sql file: reset_tables.sql")
@@ -51,7 +60,6 @@ def drop_tables():
         except mysql.connector.errors.ProgrammingError:
             print("Tables doesen't exists")
     db.commit()
-
 
 def fill_up_tables(sql_file_name):
     print(f"Executing sql file: {sql_file_name}")
