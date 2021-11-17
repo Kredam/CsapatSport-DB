@@ -11,8 +11,8 @@
             <div class="input-group mb-3">
                 <form action="#" method="POST">
                     <input type="text" class="form-control" name="team" id="team_field" placeholder="Team's name">
-                    <button type="submit" type="submit" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record"><i class="far fa-plus-square"></i></button>
-                    <button type="submit" class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record"><i class="fas fa-list"></i></button>
+                    <button type="submit" value="+" type="submit" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record"><i class="far fa-plus-square"></i></button>
+                    <button type="submit" value="---" class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record"><i class="fas fa-list"></i></button>
                 </form>
             </div>
         </div>
@@ -20,8 +20,8 @@
 {% endblock %}
 
 {% block update_inputs %}
-        <label for="teams_name">Team's name</label>
-        <input type="text" class="form-control" value="" name="teams_name" id="teams_name" placeholder="Team's name" disabled>
+        <label for="update_team_name">Team's name</label>
+        <input type="text" class="form-control" value="" name="teams_name" id="update_team_name" placeholder="Team's name" readonly>
         <label for="abbr_field">Abbreviation</label>
         <input type="text" class="form-control" name="abbreviation" id="abbr_field" placeholder="Abbreviation">
         <label for="abbr_field">Badge(URL)</label>
@@ -32,10 +32,11 @@
         <input type="number" class="form-control" value="0" name="draws" id="draw_field" placeholder="Draws">
         <label for="loss_field">Loss</label>
         <input type="number" class="form-control" value="0" name="loss" id="loss_field" placeholder="Loss">
-        <input type="submit" name="update" value="Update">
+        <input type="submit" name="update">
 {% endblock %}
 
 {% block table %}
+<div class="container-sm">
     <div class="table-responsive-sm">
         <table class="table table-hover">
             <thead>
@@ -61,7 +62,7 @@
                     <form method="POST">
                         <td>
                             <input type="hidden" id="team_to_remove" value="" name="team_delete">
-                            <button type="submit" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record" data-team={{team["name"].replace(' ', '_')}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                            <button type="submit" name="remove_button" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record" data-team={{team["name"].replace(' ', '_')}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
                         </td>
                     </form>
                     <td><img src={{team["badge"]}}></td>
@@ -78,4 +79,5 @@
             <script src="../../static/js/update.js"></script>
         </table>
     </div>
+</div>
 {% endblock %}
