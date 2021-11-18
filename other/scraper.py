@@ -25,8 +25,13 @@ class scraper:
         self.scrape_clubs_data()
 
     def scrape_stadium(self):
+        wd = webdriver.Chrome(PATH)
         print(self.team_website)
-        # soup = BeautifulSoup(requests.get(self.team_website[:-8] + stadium_tab).content, 'html.parser')
+        wd.implicitly_wait(20)
+        wd.get(self.team_website[:-8] + "stadium")
+        print(self.team_website[:-8] + "stadium")
+        stadium_name = wd.find_element_by_css_selector('span.stadium').text.replace('\'', '\'\'')
+        wd.quit()
 
     def scrape_players_data(self, club):
         player_list = list()
@@ -85,7 +90,6 @@ class scraper:
         self.clear_file_content("db/sql/insert_player.sql")
         self.clear_file_content("db/sql/insert_teams.sql")
         for club in Clubs:
-            wd = webdriver.Chrome(PATH)
             if club == "Brighton & Hove Albion":
                 club = "Brighton and Hove Albion"
             badge = soup.find("tr", attrs={"data-filtered-table-row-name": club}).find("span", attrs={
@@ -107,16 +111,10 @@ class scraper:
                 "data-filtered-table-row-expander": soup.find("tr", attrs={"data-filtered-table-row-name": club})[
                     "data-filtered-table-row"]}).find_all("div", class_="resultWidget")
             points = int(wins)*3+int(draw)
-            wd.implicitly_wait(20)
-            wd.get(self.team_website[:-8] + "stadium")
-            print(self.team_website[:-8] + "stadium")
-            stadium_name = wd.find_element_by_css_selector('span.stadium').text.replace('\'', '\'\'')
-            print(stadium_name)
-            statement = f"INSERT INTO Csapatok(position, name, abbreviation, stadium, badge, points, matches_played, W, D, L) VALUES ({position}, '{club}', '{abbreviation}', '{stadium_name}', '{badge}', {points}, {matches_played}, {wins}, {draw}, {loss});\n"
+            statement = f"INSERT INTO Csapatok(name, abbreviation, badge, W, D, L) VALUES ('{club}', '{abbreviation}', '{badge}', {wins}, {draw}, {loss});\n"
             self.write_to_sql_file("db/sql/insert_teams.sql", statement)
             self.next_match(match_data, abbreviation, club)
             self.scrape_players_data(club)
-            wd.quit()
 
     def clear_file_content(self, file_name):
         with open(file_name, "r+", encoding='utf-8') as f:
