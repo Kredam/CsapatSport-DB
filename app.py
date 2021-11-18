@@ -21,7 +21,7 @@ def teams():
         remove_button = request.form.get('remove_button')
         club = request.form.get('team')
         if list_button is not None and club.strip() != "":
-            database.cursor.execute(f"SELECT * FROM csapatok WHERE name LIKE '{club}'")
+            database.cursor.execute(f"SELECT * FROM Csapatok WHERE name LIKE '{club}'")
         elif update_button is not None:
             print(request.form)
             update_club = request.form.get('teams_name')
@@ -30,22 +30,22 @@ def teams():
             draws = request.form.get('draws')
             loss = request.form.get('loss')
             abbr = request.form.get('abbreviation')
-            database.cursor.execute(f"UPDATE csapatok SET abbreviation = '{abbr}', badge = '{badge}', W = {wins}, D = {draws}, L={loss} WHERE name = '{update_club}'")
+            database.cursor.execute(f"UPDATE Csapatok SET abbreviation = '{abbr}', badge = '{badge}', W = {wins}, D = {draws}, L={loss} WHERE name = '{update_club}'")
             database.db.commit()
-            database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
+            database.cursor.execute("SELECT * FROM Csapatok  ORDER BY points DESC ")
         elif add_button is not None and club.strip() != "":
-            database.cursor.execute(f"INSERT INTO csapatok (name) VALUES ('{club}')")
+            database.cursor.execute(f"INSERT INTO Csapatok (name) VALUES ('{club}')")
             database.db.commit()
-            database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
+            database.cursor.execute("SELECT * FROM Csapatok  ORDER BY points DESC ")
         elif remove_button is not None:
             team_to_delete = request.form.get('team_delete')
-            database.cursor.execute(f"DELETE FROM csapatok WHERE name LIKE '{team_to_delete}'")
+            database.cursor.execute(f"DELETE FROM Csapatok WHERE name LIKE '{team_to_delete}'")
             database.db.commit()
-            database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
+            database.cursor.execute("SELECT * FROM Csapatok  ORDER BY points DESC ")
         else:
-            database.cursor.execute(("SELECT * FROM csapatok ORDER BY points DESC "))
+            database.cursor.execute(("SELECT * FROM Csapatok ORDER BY points DESC "))
     else:
-        database.cursor.execute("SELECT * FROM csapatok  ORDER BY points DESC ")
+        database.cursor.execute("SELECT * FROM Csapatok  ORDER BY points DESC ")
     return render_template("csapatok.html", teams=database.cursor)
 
 
@@ -55,23 +55,23 @@ def players():
         team = request.form.get('team')
         list = request.form.get('list')
         if list is not None and team.strip() != "":
-            database.cursor.execute(f"SELECT * FROM jatekosok INNER JOIN csapatok on csapatok.name = jatekosok.club WHERE club = '{team}'")
+            database.cursor.execute(f"SELECT * FROM Jatekosok INNER JOIN Csapatok on Csapatok.name = Jatekosok.club WHERE club = '{team}'")
         elif list is not None and team.strip() == "":
-            database.cursor.execute(f"SELECT * FROM jatekosok")
+            database.cursor.execute(f"SELECT * FROM Jatekosok")
     else:
-        database.cursor.execute("SELECT * FROM jatekosok INNER JOIN csapatok on csapatok.name = jatekosok.club")
+        database.cursor.execute("SELECT * FROM Jatekosok INNER JOIN Csapatok on Csapatok.name = Jatekosok.club")
     return render_template("jatekosok.html", players=database.cursor)
 
 
 @app.route('/matches')
 def matches():
-    database.cursor.execute("SELECT * FROM meccsek INNER JOIN csapatok on csapatok.name = meccsek.team")
+    database.cursor.execute("SELECT * FROM Meccsek INNER JOIN Csapatok on Csapatok.name = Meccsek.team")
     return render_template("meccsek.html", matches=database.cursor)
 
 
 @app.route('/stadiums')
 def stadiums():
-    database.cursor.execute("SELECT * FROM stadion INNER JOIN csapatok ON csapatok.name = stadion.team")
+    database.cursor.execute("SELECT * FROM Stadion INNER JOIN Csapatok ON Csapatok.name = Stadion.team")
     return render_template("stadionok.html", stadiums=database.cursor)
 
 

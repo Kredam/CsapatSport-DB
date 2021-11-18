@@ -8,7 +8,7 @@ db = mysql.connector.connect(
     user="root",
     port=3306,
     passwd="",
-    database="csapatsport"
+    database=""
 )
 
 cursor = db.cursor(buffered=True, dictionary=True)
@@ -17,7 +17,9 @@ cursor = db.cursor(buffered=True, dictionary=True)
 def create_database():
     try:
         cursor.execute("CREATE DATABASE Csapatsport")
+        db.database = "Csapatsport"
     except mysql.connector.errors.DatabaseError:
+        db.database = "Csapatsport"
         print("Csapatsport db already exists")
     finally:
         db.commit()
@@ -42,6 +44,7 @@ def create_tables():
                 statement += row
     db.commit()
 
+
 def triggers():
     statement = ""
     for row in open(os.path.join("db/sql", "triggers.sql")):
@@ -52,6 +55,7 @@ def triggers():
         else:
             statement += row
 
+
 def drop_tables():
     print(f"Executing sql file: reset_tables.sql")
     for line in open(os.path.join("db/sql", "reset_tables.sql")):
@@ -60,6 +64,7 @@ def drop_tables():
         except mysql.connector.errors.ProgrammingError:
             print("Tables doesen't exists")
     db.commit()
+
 
 def fill_up_tables(sql_file_name):
     print(f"Executing sql file: {sql_file_name}")

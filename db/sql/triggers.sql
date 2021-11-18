@@ -1,4 +1,4 @@
-CREATE TRIGGER points_matches_played_handler BEFORE UPDATE ON csapatok
+CREATE TRIGGER points_matches_played_handler BEFORE UPDATE ON Csapatok
     FOR EACH ROW
     BEGIN
         IF NEW.W < 0 THEN
@@ -12,7 +12,7 @@ CREATE TRIGGER points_matches_played_handler BEFORE UPDATE ON csapatok
         SET NEW.points = NEW.W * 3 + NEW.D;
     END;
 
-CREATE TRIGGER calculate_points_matches BEFORE INSERT ON csapatok
+CREATE TRIGGER calculate_points_matches BEFORE INSERT ON Csapatok
     FOR EACH ROW
     BEGIN
         IF NEW.W < 0 THEN
