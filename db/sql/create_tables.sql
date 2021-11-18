@@ -1,5 +1,4 @@
-CREATE TABLE Csapatok(  position INT,
-                        name VARCHAR(50) NOT NULL,
+CREATE TABLE Csapatok(  name VARCHAR(50) NOT NULL,
                         abbreviation VARCHAR(3),
                         stadium VARCHAR(100),
                         badge VARCHAR(100),
@@ -34,3 +33,4 @@ ALTER TABLE Meccsek ADD PRIMARY KEY(team);
 ALTER TABLE Jatekosok ADD FOREIGN KEY (club) REFERENCES Csapatok(name) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE Meccsek ADD FOREIGN KEY (team) REFERENCES Csapatok(name) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE Stadion ADD FOREIGN KEY (team) REFERENCES Csapatok(name) ON UPDATE CASCADE ON DELETE CASCADE;
+
