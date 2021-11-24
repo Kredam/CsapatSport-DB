@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Statistics {% endblock %}
+
+{% block csapatok_link %} class="nav-link" {% endblock %}
+{% block jatekosok_link %} class="nav-link" {% endblock %}
+{% block meccsek_link %} class="nav-link" {% endblock %}
+{% block stadionok_link %} class="nav-link" {% endblock %}
+{% block scorers_link %} class="nav-link" {% endblock %}
+{% block managers_link %}  class="nav-link" {% endblock %}
+{% block owners_link %} class="nav-link" {% endblock %}
+{% block stat_link %} class="nav-link active" {% endblock %}
+
+{% block table %}
+<div class="container-sm">
+    <div class="table-responsive-sm" id="table_div">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            {% for player in players %}
+                <tr>
+                    <td></td>
+                    <td>{{player["team"]}}</td>
+                    <td>{{player["name"]}}</td>
+                    <td>{{player["position"]}}</td>
+                    <td>{{player["number"]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
