@@ -23,6 +23,8 @@ class scraper:
     def __init__(self):
         self.team_website = ""
         self.scrape_clubs_data()
+        self.scrape_goal_scorers()
+        self.scrape_team_owner_company();
 
     def scrape_stadium(self):
         wd = webdriver.Chrome(PATH)
@@ -32,6 +34,13 @@ class scraper:
         print(self.team_website[:-8] + "stadium")
         stadium_name = wd.find_element_by_css_selector('span.stadium').text.replace('\'', '\'\'')
         wd.quit()
+
+    def scrape_goal_scorers(self):
+        URL = "https://www.premierleague.com/stats/top/players/goals"
+        wd = webdriver.Chrome(PATH)
+        wd.implicitly_wait(10)
+        wd.get(URL)
+
 
     def scrape_players_data(self, club):
         player_list = list()
@@ -45,7 +54,7 @@ class scraper:
             player_nr = player_info.find("span", class_="number").text
             player_pos = player_info.find("span", class_="position").text
             if player_name not in player_list and player_nr.isdigit():
-                statement = f"INSERT INTO Jatekosok(id, club, name, position, number) VALUES ({jatekos_id}, '{club}', '{player_name}', '{player_pos}', {int(player_nr)});\n"
+                statement = f"INSERT INTO Players(id, team, name, position, number) VALUES ({jatekos_id}, '{club}', '{player_name}', '{player_pos}', {int(player_nr)});\n"
                 self.write_to_sql_file("db/sql/insert_player.sql", statement)
                 jatekos_id += 1
 
@@ -82,7 +91,7 @@ class scraper:
                 for enemy in team_names:
                     if enemy.text != abbr:
                         enemy = enemy.findChild("abbr")
-                        statement = f"INSERT INTO Meccsek(team, enemy_team, takes_place) VALUES ('{name}', '{enemy['title']}', '{datetime}');\n"
+                        statement = f"INSERT INTO Matches(team, enemy_team, takes_place) VALUES ('{name}', '{enemy['title']}', '{datetime}');\n"
                         self.write_to_sql_file("db/sql/insert_match.sql", statement)
 
     def scrape_clubs_data(self):
@@ -111,7 +120,7 @@ class scraper:
                 "data-filtered-table-row-expander": soup.find("tr", attrs={"data-filtered-table-row-name": club})[
                     "data-filtered-table-row"]}).find_all("div", class_="resultWidget")
             points = int(wins)*3+int(draw)
-            statement = f"INSERT INTO Csapatok(name, abbreviation, badge, W, D, L) VALUES ('{club}', '{abbreviation}', '{badge}', {wins}, {draw}, {loss});\n"
+            statement = f"INSERT INTO Clubs(name, league, season, abbreviation, badge, W, D, L) VALUES ('{club}', 'Premier League', 2021, '{abbreviation}', '{badge}', {wins}, {draw}, {loss});\n"
             self.write_to_sql_file("db/sql/insert_teams.sql", statement)
             self.next_match(match_data, abbreviation, club)
             self.scrape_players_data(club)
@@ -130,3 +139,6 @@ class scraper:
         except FileNotFoundError:
             file = open(file_name, "w", encoding="utf-8")
             file.write(insert_statement)
+
+    def scrape_team_owner_company(self):
+        pass
