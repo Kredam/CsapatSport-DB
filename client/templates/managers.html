@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Csapatok{% endblock %}
+
+{% block csapatok_link %} class="nav-link" {% endblock %}
+{% block jatekosok_link %} class="nav-link" {% endblock %}
+{% block meccsek_link %} class="nav-link" {% endblock %}
+{% block stadionok_link %} class="nav-link" {% endblock %}
+{% block scorers_link %} class="nav-link" {% endblock %}
+{% block managers_link %}  class="nav-link active" {% endblock %}
+{% block owners_link %} class="nav-link" {% endblock %}
+{% block stat_link %} class="nav-link" {% endblock %}
+
+
+{% block search_label %} Team's name {% endblock %}
+
+
+{% block update_inputs %}
+        <label for="update_team_name">Team's name</label>
+        <input type="text" class="form-control" value="" name="teams_name" id="update_team_name" placeholder="Team's name" readonly>
+        <label for="abbr_field">Abbreviation</label>
+        <input type="text" class="form-control" name="abbreviation" id="abbr_field" placeholder="Abbreviation">
+        <label for="abbr_field">Badge(URL)</label>
+        <input type="url" class="form-control" name="badge" id="badge_field" placeholder="Badge URL">
+        <label for="win_field">Wins</label>
+        <input type="number" class="form-control" value="0" name="wins" id="win_field" placeholder="Wins">
+        <label for="draw_field">Draws</label>
+        <input type="number" class="form-control" value="0" name="draws" id="draw_field" placeholder="Draws">
+        <label for="loss_field">Loss</label>
+        <input type="number" class="form-control" value="0" name="loss" id="loss_field" placeholder="Loss">
+        <input type="submit" name="update">
+{% endblock %}
+
+{% block table %}
+<div class="container-sm">
+    <div class="table-responsive-sm">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Team</th>
+                    <th scope="col">Nationality</th>
+
+                </tr>
+            </thead>
+            {% for manager in managers %}
+                <tr>
+                    <td>
+                    </td>
+                    <form method="POST">
+                        <td>
+                        </td>
+                    </form>
+                    <td><img src={{manager["badge"]}}></td>
+                    <td>{{manager["name"]}}</td>
+                    <td>{{manager["team"]}}</td>
+                    <td>{{manager["nationality"]}}</td>
+
+                </tr>
+            {% endfor %}
+            <script src="../../static/js/update.js"></script>
+        </table>
+    </div>
+</div>
+{% endblock %}

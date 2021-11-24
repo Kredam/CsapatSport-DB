@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Csapatok{% endblock %}
+
+{% block csapatok_link %} class="nav-link" {% endblock %}
+{% block jatekosok_link %} class="nav-link" {% endblock %}
+{% block meccsek_link %} class="nav-link" {% endblock %}
+{% block stadionok_link %} class="nav-link" {% endblock %}
+{% block scorers_link %} class="nav-link" {% endblock %}
+{% block managers_link %}  class="nav-link" {% endblock %}
+{% block owners_link %} class="nav-link active" {% endblock %}
+{% block stat_link %} class="nav-link" {% endblock %}
+
+
+{% block search_label %} Team's name/Boss/Company {% endblock %}
+
+
+{% block update_inputs %}
+        <label for="team_name">Team's name</label>
+        <input type="text" class="form-control" value="" name="teams_name" id="update_team_name" placeholder="Team's name">
+        <label for="company_field">Company</label>
+        <input type="text" class="form-control" name="company" id="update_company_field" placeholder="Company" readonly>
+        <label for="boss_field">Boss</label>
+        <input type="text" class="form-control" name="boss" id="boss_field" placeholder="Boss">
+        <input type="submit" name="update">
+{% endblock %}
+
+
+
+{% block table %}
+<div class="container-sm">
+    <div class="table-responsive-sm">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Boss</th>
+                    <th scope="col">Team</th>
+
+                </tr>
+            </thead>
+            {% for owner in owners %}
+                <tr>
+                    <td>
+                    </td>
+                    <form method="POST">
+                        <td>
+                        </td>
+                    </form>
+                    <td><img src={{owner["badge"]}}></td>
+                    <td>{{owner["company"]}}</td>
+                    <td>{{owner["boss"]}}</td>
+                    <td>{{owner["team"]}}</td>
+
+                </tr>
+            {% endfor %}
+            <script src="../../static/js/update.js"></script>
+        </table>
+    </div>
+</div>
+{% endblock %}
