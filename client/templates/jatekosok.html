@@ -1,49 +1,106 @@
 {% extends 'base.html' %}
 
-{% block title %} Matches {% endblock %}
+{% block title %} Jatekosok {% endblock %}
 
 {% block csapatok_link %} class="nav-link" {% endblock %}
 {% block jatekosok_link %} class="nav-link active" {% endblock %}
 {% block meccsek_link %} class="nav-link" {% endblock %}
 {% block stadionok_link %} class="nav-link" {% endblock %}
+{% block scorers_link %} class="nav-link" {% endblock %}
+{% block managers_link %}  class="nav-link" {% endblock %}
+{% block owners_link %} class="nav-link" {% endblock %}
+{% block stat_link %} class="nav-link" {% endblock %}
 
-{% block input %}
-    <div class="row" style="padding-top: 30px">
-        <div class="mx-auto" style="width: 300px">
-            <div class="input-group mb-3">
-                <form action="#" method="POST">
-                    <input type="text" class="form-control" name="team" id="team_players" placeholder="Team's name">
-                    <button type="submit" value="+" type="submit" class="btn btn-success" name="add" data-toggle="tooltip" data-placement="bottom" title="Add Record"><i class="far fa-plus-square"></i></button>
-                    <button type="submit" value="---" class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record"><i class="fas fa-list"></i></button>
-                </form>
-            </div>
-        </div>
+
+{% block search_label %} Player/Team's name/Position {% endblock %}
+{% block search_options %}
+<div class="radios">
+    <div class="form-check form-check-inline">
+          <input checked class="form-check-input" value="Managers" type="radio" name="search_options" id="Manager_radio">
+          <label class="form-check-label" for="Manager_radio">
+            Managers
+          </label>
     </div>
+    <div class="form-check form-check-inline">
+          <input class="form-check-input" value="Players" type="radio" name="search_options" id="Player_radio">
+          <label class="form-check-label" for="Player_radio">
+            Players
+          </label>
+    </div>
+    <div class="form-check form-check-inline">
+          <input class="form-check-input" value="Owner" type="radio" name="search_options" id="Owner_radio">
+          <label class="form-check-label" for="Owner_radio">
+            Owner
+          </label>
+    </div>
+</div>
 {% endblock %}
 
+{% block update_inputs %}
+        <label for="update_player_id">Player's id</label>
+        <input type="number" class="form-control" value="" name="player_id" id="update_player_id" placeholder="Player's id" readonly>
+        <label for="update_player_name">Player's name</label>
+        <input type="text" class="form-control" value="" name="player_name" id="update_player_name" placeholder="Player's name" readonly>
+        <label for="update_team_name">Team's name</label>
+        <input type="text" class="form-control" value="" name="teams_name" id="update_team_name" placeholder="Team's name"  required>
+        <label for="update_pitch_position">Pitch Position</label>
+        <input type="text" class="form-control" name="pitch_position" id="update_pitch_position" placeholder="Pitch position">
+        <label for="update_shirt_number">Shirt number</label>
+        <input type="number" class="form-control" value="0" name="shirt_number" id="update_shirt_number" placeholder="shirt number">
+        <input type="submit" name="update">
+{% endblock %}
+
+{% block create_inputs %}
+        <label for="create_player_name">Player's name</label>
+        <input type="text" class="form-control" value="" name="player_name" id="create_player_name" placeholder="Player's name">
+        <label for="create_team_name">Team's name</label>
+        <input type="text" class="form-control" value="" name="teams_name" id="create_team_name" placeholder="Team's name" required>
+        <label for="create_pitch_position">Pitch Position</label>
+        <input type="text" class="form-control" name="pitch_position" id="create_pitch_position" placeholder="Pitch position">
+        <label for="create_shirt_number">Shirt number</label>
+        <input type="number" class="form-control" value="0" name="shirt_number" id="create_shirt_number" placeholder="shirt number">
+        <input type="submit" name="create">
+{% endblock %}
+
+
 {% block table %}
-    <div class="sql_table_div">
-        <table class="sql_table">
+
+<div class="container-sm">
+    <div class="table-responsive-sm" id="table_div">
+        <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>badge</th>
-                    <th>id</th>
-                    <th>Team's name</th>
-                    <th>Player's name</th>
-                    <th>Pitch Position</th>
-                    <th>Shirt Number</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">badge</th>
+                    <th scope="col">Team's name</th>
+                    <th scope="col">Player's name</th>
+                    <th scope="col">Pitch Position</th>
+                    <th scope="col">Shirt Number</th>
                 </tr>
             </thead>
             {% for player in players %}
                 <tr>
+                    <td>
+                        <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#updateModal" id="specific_team_update"
+                                data-player-name={{player["name"].replace(' ', '_')}} data-id={{player["id"]}}><i style="padding-left: 2px" class="far fa-edit"></i></button>
+                    </td>
+                    <form method="POST">
+                        <td>
+                            <input type="hidden" id="player_to_delete" value="" name="player_delete">
+                            <button type="submit" name="remove_button" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record_player"
+                                    data-player-id={{player["id"]}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                        </td>
+                    </form>
                     <td><img src={{player["badge"]}}></td>
-                    <td>{{player["id"]}}</td>
-                    <td>{{player["club"]}}</td>
+                    <td>{{player["team"]}}</td>
                     <td>{{player["name"]}}</td>
                     <td>{{player["position"]}}</td>
                     <td>{{player["number"]}}</td>
                 </tr>
             {% endfor %}
+            <script src="../../static/js/update.js"></script>
         </table>
     </div>
+</div>
 {% endblock %}

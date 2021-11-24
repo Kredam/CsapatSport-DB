@@ -14,6 +14,47 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+
+    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateModalLabel">Update Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">
+              <div class="form-group">
+                  {% block update_inputs %} {% endblock %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createModalLabel">Create Record</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST">
+              <div class="form-group">
+                  {% block create_inputs %} {% endblock %}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container-fluid">
         <nav class="navbar navbar-expand-sm sticky-top navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,40 +67,40 @@
                         <li class="nav-item"><a {% block jatekosok_link %}{% endblock %} href="/players">Játékosok</a></li>
                         <li class="nav-item"><a {% block meccsek_link %}{% endblock %} href="/matches">Meccsek</a></li>
                         <li class="nav-item"><a {% block stadionok_link %}{% endblock %} href="/stadiums">Stadionok</a></li>
+                        <li class="nav-item"><a {% block scorers_link %}{% endblock %} href="/scorers">Top Scorers</a></li>
+                        <li class="nav-item"><a {% block managers_link %}{% endblock %} href="/managers">Managers</a></li>
+                        <li class="nav-item"><a {% block owners_link %}{% endblock %} href="/owners">Owners</a></li>
+                        <li class="nav-item"><a {% block stat_link %}{% endblock %} href="/stat">Statistics</a></li>
                     </ul>
-                </div>
                 </div>
         </nav>
 
-    {% block intro %} {% endblock %}
-
-    {% block input %} {% endblock %}
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Update database</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form method="post">
-              <div class="form-group">
-                  {% block update_inputs %} {% endblock %}
-              </div>
-            </form>
-          </div>
+    <div class="text-center">
+        <div class="row" style="padding-top: 30px">
+            <div class="mx-auto" style="width: 300px">
+                <div class="input-group mb-3">
+                    <form action="#" method="POST">
+                        <label for="search_add_input">{% block search_label %}{% endblock %}</label>
+                        <input type="text" class="form-control" name="search_add_field" id="search_add_input">
+                        <button type="button" class="btn btn-success" value="+" data-toggle="modal" data-target="#createModal" id="specific_team_update"><i class="fas fa-plus"></i></button>
+                        <button type="submit" class="btn btn-info" name="list" data-toggle="tooltip" data-placement="bottom" title="List Record"><i class="fas fa-list"></i></button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    {% block update %} {% endblock %}
+
+    <div id="text-center">
+        <form method="POST">
+            {% block search_options %}{% endblock %}
+        </form>
+    </div>
 
     {% block table %}{% endblock %}
     </div>
 
     <script src="../../static/js/update.js"></script>
+    <script src="../../static/js/staff.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

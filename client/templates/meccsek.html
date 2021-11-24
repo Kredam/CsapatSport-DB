@@ -4,6 +4,13 @@
 {% block jatekosok_link %} class="nav-link" {% endblock %}
 {% block meccsek_link %} class="nav-link active" {% endblock %}
 {% block stadionok_link %} class="nav-link" {% endblock %}
+{% block scorers_link %} class="nav-link" {% endblock %}
+{% block managers_link %}  class="nav-link" {% endblock %}
+{% block owners_link %} class="nav-link" {% endblock %}
+{% block stat_link %} class="nav-link" {% endblock %}
+
+
+{% block search_label %} Team's name {% endblock %}
 
 {% block table %}
 <div class="container-sm">
@@ -11,15 +18,29 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                     <th scope="col">Team's name</th>
+                    <th scope="col">Team's Badge</th>
                     <th scope="col">Enemy's name</th>
+                    <th scope="col">Enemy's Badge</th>
                     <th scope="col">Date</th>
                 </tr>
             </thead>
             {% for match in matches %}
                 <tr>
+                    <td>
+                    </td>
+                    <form method="POST">
+                        <td>
+                            <input type="hidden" id="team_to_remove" value="" name="team_delete">
+                            <button type="submit" name="remove_button" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record_team" data-id={{match["id"]}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                        </td>
+                    </form>
                     <td>{{match['team']}}</td>
+                    <td><img src={{match['team_badge']}}></td>
                     <td>{{match['enemy_team']}}</td>
+                    <td><img src={{match['enemy_team_badge']}}></td>
                     <td>{{match['takes_place']}}</td>
                 </tr>
             {% endfor %}
