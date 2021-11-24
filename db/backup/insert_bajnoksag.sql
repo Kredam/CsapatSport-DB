@@ -1,0 +1,1 @@
+INSERT INTO Championship(league, season) VALUES ('Premier League', 2021);
