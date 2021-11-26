@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Csapatok{% endblock %}
+{% block title %}Owners{% endblock %}
 
 {% block csapatok_link %} class="nav-link" {% endblock %}
 {% block jatekosok_link %} class="nav-link" {% endblock %}
@@ -46,13 +46,12 @@
                 <tr>
                     <td>
                     </td>
-                    <form method="POST">
-                        <td>
-                        </td>
-                    </form>
+                    <td>
+                        <button type="submit" name="remove_button" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record_owner" data-id={{owner["id"]}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                    </td>
                     <td><img src={{owner["badge"]}}></td>
                     <td>{{owner["company"]}}</td>
-                    <td>{{owner["boss"]}}</td>
+                    <td>{{owner["name"]}}</td>
                     <td>{{owner["team"]}}</td>
 
                 </tr>

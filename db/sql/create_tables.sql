@@ -27,23 +27,25 @@ CREATE TABLE Matches(   team VARCHAR(50) NOT NULL,
                         takes_place DATE);
 
 CREATE TABLE Stadiums(  team VARCHAR(50) NOT NULL,
-                        name VARCHAR(100));
+                        name VARCHAR(100),
+                        city VARCHAR(100));
 
 CREATE TABLE Managers(  name VARCHAR(50),
                         nationality VARCHAR(50),
                         team VARCHAR(50) NOT NULL);
 
 CREATE TABLE Owners (   company VARCHAR(100),
-                        boss VARCHAR(50),
+                        name VARCHAR(50),
                         team VARCHAR(50) NOT NULL);
 
 ALTER TABLE Clubs ADD PRIMARY KEY(name);
 ALTER TABLE Stadiums ADD PRIMARY KEY(name);
-ALTER TABLE Owners ADD PRIMARY KEY(company);
 ALTER TABLE Championship ADD PRIMARY KEY(league, season);
 ALTER TABLE Matches ADD id INT PRIMARY KEY AUTO_INCREMENT;
-ALTER TABLE Players ADD id INT PRIMARY KEY AUTO_INCREMENT;
 ALTER TABLE Scorers ADD id INT PRIMARY KEY AUTO_INCREMENT;
+ALTER TABLE Managers ADD id INT PRIMARY KEY AUTO_INCREMENT;
+ALTER TABLE Owners ADD id INT PRIMARY KEY AUTO_INCREMENT;
+ALTER TABLE Players ADD id INT PRIMARY KEY AUTO_INCREMENT;
 
 ALTER TABLE Players ADD FOREIGN KEY (team) REFERENCES Clubs(name) ON UPDATE CASCADE ON DELETE CASCADE;
 ALTER TABLE Owners ADD FOREIGN KEY (team) REFERENCES Clubs(name) ON UPDATE CASCADE ON DELETE CASCADE;

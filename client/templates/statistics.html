@@ -1,6 +1,31 @@
 {% extends 'base.html' %}
 
 {% block title %} Statistics {% endblock %}
+{% block optional_scripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable(
+            [       ["Team's name", "appearances"],
+                {% for team in teams %}
+                    ['{{ team["name"] }}', {{team["team_apperance"]}}],
+                {% endfor %}
+            ]);
+            console.log(data)
+
+            var options = {
+              title: 'Scorers by team',
+              is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart'));
+            chart.draw(data, options);
+          }
+    </script>
+{% endblock %}
 
 {% block csapatok_link %} class="nav-link" {% endblock %}
 {% block jatekosok_link %} class="nav-link" {% endblock %}
@@ -12,25 +37,48 @@
 {% block stat_link %} class="nav-link active" {% endblock %}
 
 {% block table %}
+<div class = "text-center" style="width: 700px; height: 700px" id="chart"></div>
 <div class="container-sm">
     <div class="table-responsive-sm" id="table_div">
+        <h1 class="text-center" style="color: white">Scorers Grouped by Team</h1>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col">Badge</th>
+                    <th scope="col">Team's name</th>
+                    <th scope="col">League</th>
+                    <th scope="col">All Goals</th>
+                    <th scope="col">Amount of Team apperance</th>
                 </tr>
             </thead>
-            {% for player in players %}
+            {% for team in teams %}
                 <tr>
-                    <td></td>
-                    <td>{{player["team"]}}</td>
-                    <td>{{player["name"]}}</td>
-                    <td>{{player["position"]}}</td>
-                    <td>{{player["number"]}}</td>
+                    {% if http in badge or https in badge%}
+                    <td><img src={{team["badge"]}} ></td>
+                    {% else %}
+                    <td><img src={{team["badge"]}} ></td>
+                    {% endif %}
+                    <td>{{team["name"]}}</td>
+                    <td>{{team["league"]}}</td>
+                    <td>{{team["all_goals"]}}</td>
+                    <td>{{team["team_apperance"]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="text-center" style="color: white">Amount of Players by Team</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Badge</th>
+                    <th scope="col">team</th>
+                    <th scope="col">nr. of Players</th>
+                </tr>
+            </thead>
+            {% for key, value in position.items() %}
+                <tr>
+                    <td><img src={{position[key]["badge"]}} </td>
+                    <td>{{key}}</td>
+                    <td>{{position[key]["pos"]}}</td>
                 </tr>
             {% endfor %}
         </table>

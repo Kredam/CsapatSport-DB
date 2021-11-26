@@ -13,6 +13,7 @@
 
 
 {% block search_label %} Player/Team's name/Position {% endblock %}
+
 {% block search_options %}
 <div class="radios">
     <div class="form-check form-check-inline">
@@ -62,9 +63,7 @@
         <input type="submit" name="create">
 {% endblock %}
 
-
 {% block table %}
-
 <div class="container-sm">
     <div class="table-responsive-sm" id="table_div">
         <table class="table table-hover">
@@ -85,13 +84,9 @@
                         <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#updateModal" id="specific_team_update"
                                 data-player-name={{player["name"].replace(' ', '_')}} data-id={{player["id"]}}><i style="padding-left: 2px" class="far fa-edit"></i></button>
                     </td>
-                    <form method="POST">
-                        <td>
-                            <input type="hidden" id="player_to_delete" value="" name="player_delete">
-                            <button type="submit" name="remove_button" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record_player"
-                                    data-player-id={{player["id"]}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
-                        </td>
-                    </form>
+                    <td>
+                        <button type="button" name="remove_button" class="btn btn-danger" id="remove_record_player" value="-" style="padding:2px" data-player-id={{player["id"]}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                    </td>
                     <td><img src={{player["badge"]}}></td>
                     <td>{{player["team"]}}</td>
                     <td>{{player["name"]}}</td>

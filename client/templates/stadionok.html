@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %} Stadiums {% endblock %}
+
 {% block csapatok_link %} class="nav-link" {% endblock %}
 {% block jatekosok_link %} class="nav-link" {% endblock %}
 {% block meccsek_link %} class="nav-link" {% endblock %}
@@ -10,8 +12,27 @@
 {% block stat_link %} class="nav-link" {% endblock %}
 
 
-{% block search_label %} Team name {% endblock %}
+{% block search_label %} Stadium name {% endblock %}
 
+{% block update_inputs %}
+        <label for="update_stadium_name">Stadium name</label>
+        <input type="text" class="form-control" value="" name="stadium" id="update_stadium_name" placeholder="stadium">
+        <label for="update_team_name">Team's name</label>
+        <input type="text" class="form-control" value="" name="teams" id="update_team_name" placeholder="Team's name" required>
+        <label for="update_city">City</label>
+        <input type="text" class="form-control" value="" name="city" id="update_city" placeholder="City" >
+        <input type="submit" name="update">
+{% endblock %}
+
+{% block create_inputs %}
+        <label for="create_stadium_name">Stadium name</label>
+        <input type="text" class="form-control" value="" name="stadium" id="create_stadium_name" placeholder="stadium" readonly>
+        <label for="create_team_name">Team's name</label>
+        <input type="text" class="form-control" value="" name="teams" id="create_team_name" placeholder="Team's name" required>
+        <label for="create_city">City</label>
+        <input type="text" class="form-control" value="" name="city" id="create_city" placeholder="City">
+        <input type="submit" name="create">
+{% endblock %}
 
 {% block table %}
 <div class="container-sm">
@@ -20,15 +41,25 @@
             <thead>
                 <tr>
                     <th scope="col"></th>
-                    <th scope="col">Team's name</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                     <th scope="col">Stadium's name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Team's name</th>
                 </tr>
             </thead>
             {% for stadium in stadiums %}
                 <tr>
+                    <td>
+                        <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#updateModal" id="specific_stadium_update" data-stadium-name={{stadium["name"].replace(' ', '_')}}><i style="padding-left: 2px" class="far fa-edit"></i></button>
+                    </td>
+                    <td>
+                        <button type="submit" name="remove_button" class="btn btn-danger" value="-" style="padding:2px"  id="remove_record_stadium" data-stadium-name={{stadium["name"].replace(' ', '_')}}><i style="padding-left: 2px" class="fas fa-minus-circle"></i></button>
+                    </td>
                     <td><img src={{stadium['badge']}}></td>
-                    <td>{{stadium['team']}}</td>
                     <td>{{stadium['name']}}</td>
+                    <td>{{stadium['city']}}</td>
+                    <td>{{stadium['team']}}</td>
                 </tr>
             {% endfor %}
         </table>
