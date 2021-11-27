@@ -3,37 +3,37 @@
 {% block title %}Managers{% endblock %}
 
 {% block csapatok_link %} class="nav-link" {% endblock %}
-{% block jatekosok_link %} class="nav-link" {% endblock %}
 {% block meccsek_link %} class="nav-link" {% endblock %}
 {% block stadionok_link %} class="nav-link" {% endblock %}
-{% block scorers_link %} class="nav-link" {% endblock %}
-{% block managers_link %}  class="nav-link active" {% endblock %}
-{% block owners_link %} class="nav-link" {% endblock %}
+{% block training_ground_link %} class="nav-link" {% endblock %}
+{% block jatekosok_link %} class="dropdown-item nav-link" {% endblock %}
+{% block managers_link %}  class="dropdown-item nav-link active" {% endblock %}
+{% block owners_link %} class="dropdown-item nav-link" {% endblock %}
 {% block stat_link %} class="nav-link" {% endblock %}
+
 
 
 {% block search_label %} Team's name {% endblock %}
 
-
 {% block update_inputs %}
+        <label for="managers_id">Manager id</label>
+        <input type="text" class="form-control" value="" name="managers_id" id="managers_id" readonly>
         <label for="update_team_name">Team's name</label>
-        <input type="text" class="form-control" value="" name="teams_name" id="update_team_name" placeholder="Team's name" readonly>
+        <input type="text" class="form-control" value="" name="teams_name" id="update_team_name" placeholder="Team's name">
         <label for="update_nationality">Nationality</label>
-        <label for="update_nationality">League name</label>
         <input type="text" class="form-control" value="" name="nationality" id="update_nationality" placeholder="Nationality">
-        <label for="update_name">League season</label>
-        <input type="number" class="form-control" value="" name="name" id="update_name" placeholder="Name" required>
+        <label for="update_name">Owner name</label>
+        <input type="text" class="form-control" value="" name="name" id="update_name" placeholder="Name" required>
         <input type="submit" name="update">
 {% endblock %}
 
 {% block create_inputs %}
     <label for="create_team_name">Team's name</label>
-    <input type="text" class="form-control" value="" name="teams_name" id="create_team_name" placeholder="Team's name" readonly>
+    <input type="text" class="form-control" value="" name="teams_name" id="create_team_name" placeholder="Team's name">
     <label for="create_nationality">Nationality</label>
-    <label for="update_nationality">League name</label>
     <input type="text" class="form-control" value="" name="nationality" id="create_nationality" placeholder="Nationality">
     <label for="create_name">League season</label>
-    <input type="number" class="form-control" value="" name="name" id="create_name" placeholder="Name" required>
+    <input type="text" class="form-control" value="" name="name" id="create_name" placeholder="Name" required>
     <input type="submit" name="create">
 {% endblock %}
 
@@ -55,6 +55,8 @@
             {% for manager in managers %}
                 <tr>
                     <td>
+                        <button type="submit" class="btn btn-primary" value="+" style="padding:2px" data-toggle="modal" data-target="#updateModal" id="specific_manager_update"
+                        data-id={{manager["id"]}}><i style="padding-left: 2px" class="far fa-edit"></i></button>
 
                     </td>
                     <td>
