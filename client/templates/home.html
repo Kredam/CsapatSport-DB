@@ -12,23 +12,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Home</title>
+
+
 </head>
 <body>
 <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm sticky-top navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <li class="navbar-brand"><i class="fas fa-database"></i></li>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                     <ul class="nav nav-pills navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a href="/teams">Csapatok</a></li>
-                        <li class="nav-item"><a href="/players">Játékosok</a></li>
-                        <li class="nav-item"><a href="/matches">Meccsek</a></li>
-                        <li class="nav-item"><a href="/stadiums">Stadionok</a></li>
-                        <li class="nav-item"><a href="/scorers">Top scorers</a></li>
-                        <li class="nav-item"><a href="/managers">Managers</a></li>
-                        <li class="nav-item"><a href="/owners">Owners</a></li>
+                        <li class="nav-item"><a href="/teams">Clubs</a></li>
+                        <li class="nav-item"><a href="/matches">Matches</a></li>
+                        <li class="nav-item"><a href="/stadiums">Stadiums</a></li>
+                        <li class="nav-item"><a href="/training_grounds">Training Ground</a></li>
+                        <script>
+                            $(document).ready(function (){
+                                $('.dropdown-toggle').dropdown()
+                            });
+                        </script>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Staff</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                                <li class="nav-item">
+                                    <a href="/players">Players</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/managers">Managers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/owners">Owners</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item"><a href="/stat">Statistics</a></li>
                     </ul>
                 </div>
