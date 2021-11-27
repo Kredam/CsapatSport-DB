@@ -3,9 +3,11 @@ CREATE TRIGGER calculate_points_matches_on_update BEFORE UPDATE ON Clubs
     BEGIN
         IF NEW.W < 0 THEN
             SET NEW.W = 0;
-        ELSEIF NEW.D < 0 THEN
+        END IF;
+        IF NEW.D < 0 THEN
             SET NEW.D = 0;
-        ELSEIF NEW.L < 0 THEN
+        END IF;
+        IF NEW.L < 0 THEN
             SET NEW.L = 0;
         END IF;
         SET NEW.matches_played = NEW.W + NEW.D + NEW.L;
@@ -17,9 +19,11 @@ CREATE TRIGGER calculate_points_matches_on_insert BEFORE INSERT ON Clubs
     BEGIN
         IF NEW.W < 0 THEN
             SET NEW.W = 0;
-        ELSEIF NEW.D < 0 THEN
+        END IF;
+        IF NEW.D < 0 THEN
             SET NEW.D = 0;
-        ELSEIF NEW.L < 0 THEN
+        END IF;
+        IF NEW.L < 0 THEN
             SET NEW.L = 0;
         END IF;
         SET NEW.points = NEW.W*3 + NEW.D;
