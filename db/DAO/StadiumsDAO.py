@@ -3,12 +3,12 @@ class StadiumsDAO:
         self.database = database
 
     def listStadium(self):
-        self.database.cursor.execute(f"SELECT badge, Stadiums.team, Stadiums.name AS name, city FROM Stadiums INNER JOIN Clubs ON Clubs.name = Stadiums.team")
+        self.database.cursor.execute(
+            f"SELECT badge, Stadiums.team, Stadiums.name AS name, city FROM Stadiums INNER JOIN Clubs ON Clubs.name = Stadiums.team")
 
     def searchStadium(self, key):
-        self.database.cursor.execute(f"SELECT badge, Stadiums.team, Stadiums.name AS name, city FROM Stadiums INNER JOIN Clubs ON Clubs.name = Stadiums.team WHERE Stadiums.name = '{key}'")
-        self.database.db.commit()
-        self.listStadium()
+        self.database.cursor.execute(
+            f"SELECT badge, Stadiums.team, Stadiums.name AS name, city FROM Stadiums INNER JOIN Clubs ON Clubs.name = Stadiums.team WHERE Stadiums.name = '{key}'")
 
     def createStadium(self, team, name, city):
         self.database.cursor.execute(f"INSERT INTO Stadiums(team, name, city) VALUES ('{team}', '{name}', '{city}')")
@@ -23,3 +23,4 @@ class StadiumsDAO:
     def updateStadium(self, team, name, city):
         self.database.cursor.execute(f"UPDATE Stadiums SET team = '{team}', city = '{city}' WHERE name = '{name}'")
         self.database.db.commit()
+        self.listStadium()

@@ -4,11 +4,11 @@ class ManagersDAO:
 
     def searchManager(self, key):
         self.database.cursor.execute(
-            f"SELECT team, name, nationality, (SELECT badge FROM Clubs WHERE Clubs.name = team) AS badge FROM Managers WHERE Managers.team = '{key}'")
+            f"SELECT team, name, nationality id, (SELECT badge FROM Clubs WHERE Clubs.name = team) AS badge FROM Managers WHERE Managers.team = '{key}'")
 
     def listManagers(self):
         self.database.cursor.execute(
-            "SELECT team, name, nationality, (SELECT badge FROM Clubs WHERE Clubs.name = team) AS badge FROM Managers")
+            "SELECT team, name, nationality, id,(SELECT badge FROM Clubs WHERE Clubs.name = team) AS badge FROM Managers")
 
     def removeManager(self, key):
         self.database.cursor.execute(f"DELETE FROM Managers WHERE id = {key}")
@@ -22,6 +22,6 @@ class ManagersDAO:
 
     def updateManager(self, manager_id, team, nationality, name):
         self.database.cursor.execute(f"UPDATE Managers SET team='{team}', nationality='{nationality}', name='{name}' WHERE id = {manager_id}")
-        self.database.commit()
+        self.database.db.commit()
         self.listManagers()
 

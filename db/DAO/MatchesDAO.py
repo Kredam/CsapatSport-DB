@@ -22,4 +22,3 @@ class MatchesDAO:
 
     def searchMatch(self, key):
         self.database.cursor.execute(f"SELECT team, id, badge AS team_badge, enemy_team, (SELECT badge FROM Clubs WHERE Clubs.name = Matches.enemy_team) AS enemy_team_badge, takes_place FROM Matches INNER JOIN Clubs on Clubs.name = Matches.team WHERE team = '{key}'")
-        self.listMatches()
