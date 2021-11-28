@@ -23,23 +23,19 @@ class scraper:
     def __init__(self):
         self.team_website = ""
         self.scrape_clubs_data()
-        self.scrape_goal_scorers()
-        self.scrape_team_owner_company();
 
     def scrape_stadium(self):
         wd = webdriver.Chrome(PATH)
-        print(self.team_website)
         wd.implicitly_wait(20)
         wd.get(self.team_website[:-8] + "stadium")
-        print(self.team_website[:-8] + "stadium")
         stadium_name = wd.find_element_by_css_selector('span.stadium').text.replace('\'', '\'\'')
         wd.quit()
 
-    def scrape_goal_scorers(self):
-        URL = "https://www.premierleague.com/stats/top/players/goals"
-        wd = webdriver.Chrome(PATH)
-        wd.implicitly_wait(10)
-        wd.get(URL)
+    def scrape_player_goal(self, URL):
+        soup = BeautifulSoup(requests.get("https://www.premierleague.com"+URL[:-8]+"stats").content, 'html.parser')
+        print("https://www.premierleague.com"+URL[:-8]+"/stats")
+        return int(soup.find('span', class_="allStatContainer statgoals").text)
+        pass
 
 
     def scrape_players_data(self, club):
@@ -47,16 +43,22 @@ class scraper:
         soup = BeautifulSoup(requests.get(self.team_website).content, 'html.parser')
         club_overview = soup.find("nav", class_="heroPageLinks").find("a", attrs={"href": "squad"})["href"]
         soup = BeautifulSoup(requests.get(self.team_website[:-8] + club_overview).content, 'html.parser')
-        players_info = soup.find_all("span", class_="playerCardInfo")
-        global jatekos_id
+        player_card_list = soup.find("ul", class_="squadListContainer squadList block-list-4 block-list-3-m block-list-2-s block-list-padding").find_all('li')
+        # print(player_card_list)
+        players_info = soup.find_all("a", class_="playerOverviewCard active")
         for player_info in players_info:
+            goals = 0
             player_name = player_info.find("h4", class_="name").text.replace('\'', '"')
             player_nr = player_info.find("span", class_="number").text
             player_pos = player_info.find("span", class_="position").text
+            for labels in player_info.find_all('dl'):
+                if labels.findChild('dt').text == "Goals":
+                    print(labels)
+                    goals = int(labels.findChild('dd').text)
+            # print(f"INSERT INTO Players(team, name, position, number, goals) VALUES ({jatekos_id}, '{club}', '{player_name}', '{player_pos}', {int(player_nr)}, {int()});\n")
             if player_name not in player_list and player_nr.isdigit():
-                statement = f"INSERT INTO Players(id, team, name, position, number) VALUES ({jatekos_id}, '{club}', '{player_name}', '{player_pos}', {int(player_nr)});\n"
+                statement = f"INSERT INTO Players(team, name, position, number, goals) VALUES ('{club}', '{player_name}', '{player_pos}', {int(player_nr)}, {int(goals)});\n"
                 self.write_to_sql_file("db/sql/insert_player.sql", statement)
-                jatekos_id += 1
 
     def prev_match(self, match_data, abbr, name):
         for data in match_data:
@@ -132,13 +134,10 @@ class scraper:
             f.truncate()
 
     def write_to_sql_file(self, file_name, insert_statement):
-        os.chmod(os.getcwd(), 755)
+        # os.chmod(os.getcwd(), 755)
         try:
             file = open(file_name, "a", encoding="utf-8")
             file.write(insert_statement)
         except FileNotFoundError:
             file = open(file_name, "w", encoding="utf-8")
             file.write(insert_statement)
-
-    def scrape_team_owner_company(self):
-        pass
