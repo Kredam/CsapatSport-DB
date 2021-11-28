@@ -11,13 +11,13 @@
             var data = google.visualization.arrayToDataTable(
             [       ["Team's name", "appearances"],
                 {% for team in teams %}
-                    ['{{ team["name"] }}', {{team["team_apperance"]}}],
+                    ['{{ team["name"] }}', {{team["goals"]}}],
                 {% endfor %}
             ]);
             console.log(data)
 
             var options = {
-              title: 'Scorers by team',
+              title: 'Goals by team',
               is3D: true,
             };
 
@@ -53,17 +53,17 @@
                     <th scope="col">Amount of Team apperance</th>
                 </tr>
             </thead>
-            {% for team in teams %}
+            {% for player in scorers %}
                 <tr>
                     {% if http in badge or https in badge%}
-                    <td><img src={{team["badge"]}} ></td>
+                    <td><img src={{player["badge"]}} ></td>
                     {% else %}
-                    <td><img src={{team["badge"]}} ></td>
+                    <td><img src={{player["badge"]}} ></td>
                     {% endif %}
-                    <td>{{team["name"]}}</td>
-                    <td>{{team["league"]}}</td>
-                    <td>{{team["all_goals"]}}</td>
-                    <td>{{team["team_apperance"]}}</td>
+                    <td>{{player["team"]}}</td>
+                    <td>{{player["name"]}}</td>
+                    <td>{{player["position"]}}</td>
+                    <td>{{player["goals"]}}</td>
                 </tr>
             {% endfor %}
         </table>

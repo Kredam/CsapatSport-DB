@@ -59,6 +59,22 @@
 {% block table %}
 <div class="container-sm">
     <div class="table-responsive-sm">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+<!--                    <th scope="col"></th>-->
+                    <th scope="col">League</th>
+                    <th scope="col">Season</th>
+                </tr>
+            </thead>
+            {% for championship in championships %}
+                <tr>
+<!--                    <td><img src={{["badge"]}}></td>-->
+                    <td>{{championship["league"]}}</td>
+                    <td>{{championship["season"]}}</td>
+            {% endfor %}
+        </table>
         <table class="table table-hover">
             <thead>
                 <tr>
