@@ -16,6 +16,11 @@
 
 </head>
 <body>
+{% if error %}
+    <div class="alert alert-danger" role="alert">
+        <p><strong>Error</strong>: {{error}}</p>
+    </div>
+{% endif %}
 <div class="container-fluid">
         <nav class="navbar navbar-expand-sm sticky-top navbar-expand-lg navbar-dark bg-dark">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
