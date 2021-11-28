@@ -16,8 +16,8 @@ class ManagersDAO:
         self.listManagers()
 
     def createManager(self, team, nationality, name):
-        self.database.cursor.execute(f"INSERT INTO Managers(name, nationality, team) VALUES ('{team}', '{nationality}', '{name}')")
-        self.database.commit()
+        self.database.cursor.execute(f"INSERT INTO Managers(name, nationality, team) VALUES ('{name}', '{nationality}', '{team}')")
+        self.database.db.commit()
         self.listManagers()
 
     def updateManager(self, manager_id, team, nationality, name):

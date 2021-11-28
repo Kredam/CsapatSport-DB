@@ -29,10 +29,35 @@ class PlayerDAO:
 
     def sumPlayersByTeam(self):
         self.database.cursor.execute(
-            "SELECT (SELECT badge FROM Clubs WHERE Clubs.name = Players.team) AS badge, team, Count(position) AS positions FROM Players GROUP BY Players.team ORDER BY positions DESC")
+            "SELECT (SELECT badge FROM Clubs WHERE Clubs.name = Players.team) AS badge, team, Count(position) AS positions FROM Players GROUP BY Players.team ORDER BY goals DESC")
         playerNumbersByTeam = {}
         for player in self.database.cursor:
             playerNumbersByTeam[player['team']] = {'badge': '', 'pos': ''}
             playerNumbersByTeam[player['team']]['badge'] = player['badge']
             playerNumbersByTeam[player['team']]['pos'] = player['positions']
         return playerNumbersByTeam
+
+    def topScorers(self):
+        self.database.cursor.execute(
+            "SELECT (SELECT badge FROM Clubs WHERE Clubs.name = Players.team) AS badge, name, team, Players.name, Players.position, goals FROM Players ORDER BY Players.goals DESC LIMIT 20")
+        teams_data_dict = {'name': '','team':'', 'badge': '', 'position': '', 'goals': 0}
+        teams_list = list()
+        for team in self.database.cursor:
+            teams_data_dict['name'] = team['name']
+            teams_data_dict['badge'] = team['badge']
+            teams_data_dict['team'] = team['team']
+            teams_data_dict['goals'] = team['goals']
+            teams_data_dict['position'] = team['position']
+            teams_list.append(teams_data_dict.copy())
+        return teams_list
+
+    def groupScorersByTeam(self):
+        self.database.cursor.execute(
+            "SELECT (SELECT badge FROM Clubs WHERE Clubs.name = Players.team) AS badge, COUNT(team), Players.name, Players.team AS team, Players.position, SUM(goals) as goals FROM Players GROUP BY Players.team ORDER BY Players.goals DESC LIMIT 20")
+        teams_data_dict = {'name': '', 'goals': ''}
+        teams_list = list()
+        for team in self.database.cursor:
+            teams_data_dict['name'] = team['team']
+            teams_data_dict['goals'] = team['goals']
+            teams_list.append(teams_data_dict.copy())
+        return teams_list
