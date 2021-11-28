@@ -29,3 +29,11 @@ CREATE TRIGGER calculate_points_matches_on_insert BEFORE INSERT ON Clubs
         SET NEW.points = NEW.W*3 + NEW.D;
         SET NEW.matches_played = NEW.W + NEW.D + NEW.L;
     END;
+
+CREATE TRIGGER check_shirt_number_input BEFORE INSERT ON Players
+    FOR EACH ROW
+    BEGIN
+        IF NEW.number < 0 THEN
+            SET NEW.number = 0;
+        END IF;
+    END;
